@@ -31,13 +31,11 @@ import sys
 is_linux = sys.platform == "linux"
 file_path = os.path.join(os.path.dirname(__file__), "input.txt")
 
-if is_linux:
-    lines = sys.stdin.read().splitlines()
-elif os.path.exists(file_path):
+if not is_linux and os.path.exists(file_path):
     with open(file_path, "r", encoding="utf-8") as f:
         lines = f.read().splitlines()
 else:
-    raise FileNotFoundError("❌ input.txt not exists")
+    lines = sys.stdin.read().splitlines()
 
 input = iter(lines).__next__
 

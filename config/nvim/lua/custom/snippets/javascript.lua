@@ -31,12 +31,10 @@ const isLinux = process.platform === "linux";
 const filePath = path.join(process.cwd(), "input.txt");
 let input;
 
-if (isLinux) {
-  input = fs.readFileSync(0, "utf-8").trim().split("\n");
-} else if (fs.existsSync(filePath)) {
+if (!isLinux && fs.existsSync(filePath)) {
   input = fs.readFileSync(filePath, "utf-8").trim().split("\n");
 } else {
-  console.error("❌ input.txt not exist");
+  input = fs.readFileSync(0, "utf-8").trim().split("\n");
 }
 
 ]],
