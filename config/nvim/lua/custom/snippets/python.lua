@@ -28,15 +28,16 @@ Details
 import os
 import sys
 
-if sys.platform == "linux":
+is_linux = sys.platform == "linux"
+file_path = os.path.join(os.path.dirname(__file__), "input.txt")
+
+if is_linux:
     lines = sys.stdin.read().splitlines()
+elif os.path.exists(file_path):
+    with open(file_path, "r", encoding="utf-8") as f:
+        lines = f.read().splitlines()
 else:
-    file_path = os.path.join(os.path.dirname(__file__), "input.txt")
-    if os.path.exists(file_path):
-        with open(file_path, "r") as f:
-            lines = f.read().splitlines()
-    else:
-        lines = []
+    raise FileNotFoundError("❌ input.txt not exists")
 
 input = iter(lines).__next__
 

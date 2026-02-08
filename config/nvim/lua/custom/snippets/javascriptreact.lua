@@ -1,2 +1,2 @@
 -- javascriptreact.lua
-return require "custom.snippets.javascript_common"
+return require "custom.snippets.javascript"
