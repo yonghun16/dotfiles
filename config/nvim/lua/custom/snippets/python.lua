@@ -40,11 +40,6 @@ else:
 input = iter(lines).__next__
 
 
-def solve():
-
-
-if __name__ == "__main__":
-    solve()
 ]],
       {
         c(1, { i(nil, "BOJ"), i(nil, "Programmers") }),
