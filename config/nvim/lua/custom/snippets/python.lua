@@ -28,10 +28,9 @@ Details
 import os
 import sys
 
-is_linux = sys.platform == "linux"
-file_path = os.path.join(os.path.dirname(__file__), "input.txt")
+file_path = os.path.join(os.path.dirname(__file__), "input_test.txt")
 
-if not is_linux and os.path.exists(file_path):
+if os.path.exists(file_path):
     with open(file_path, "r", encoding="utf-8") as f:
         lines = f.read().splitlines()
 else:

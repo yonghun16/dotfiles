@@ -27,11 +27,10 @@ return {
 import fs from "fs";
 import path from "path";
 
-const isLinux = process.platform === "linux";
-const filePath = path.join(process.cwd(), "input.txt");
+const filePath = path.join(process.cwd(), "input_test.txt");
 let input;
 
-if (!isLinux && fs.existsSync(filePath)) {
+if (fs.existsSync(filePath)) {
   input = fs.readFileSync(filePath, "utf-8").trim().split("\n");
 } else {
   input = fs.readFileSync(0, "utf-8").trim().split("\n");
