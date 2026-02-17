@@ -1,5 +1,5 @@
 {
-    "description": "키 리매핑 설정 (vim, tmux, terminal-safe)",
+    "description": "키 리매핑 설정 (Vim, Tmux, Terminal-Safe)",
     "manipulators": [
         {
             "conditions": [
@@ -13,7 +13,7 @@
                     "type": "frontmost_application_if"
                 }
             ],
-            "description": "Control+C 단독 입력 시 ESC 두 번 (한영 전환)",
+            "description": "Control + C → 단독 입력 시 ESC 2번 (한영 전환 대응)",
             "from": {
                 "key_code": "c",
                 "modifiers": { "mandatory": ["control"] }
@@ -42,7 +42,7 @@
                     "type": "frontmost_application_if"
                 }
             ],
-            "description": "* 누르고 Shift+n (Control + /)",
+            "description": "Control + / → Vim 검색어 강조용 (* 누르고 Shift+n)",
             "from": {
                 "key_code": "slash",
                 "modifiers": { "mandatory": ["control"] }
@@ -73,16 +73,13 @@
                     "type": "frontmost_application_if"
                 }
             ],
-            "description": "Command + H/J/K/L → 분할창 이동",
+            "description": "Command + H/J/K/L → Vim 분할창 이동",
             "from": {
                 "key_code": "h",
                 "modifiers": { "mandatory": ["command"] }
             },
             "to": [
-                {
-                    "key_code": "w",
-                    "modifiers": ["control"]
-                },
+                { "key_code": "w", "modifiers": ["control"] },
                 { "key_code": "h" }
             ],
             "type": "basic"
@@ -99,15 +96,13 @@
                     "type": "frontmost_application_if"
                 }
             ],
+            "description": "Command + J → Vim 분할창 이동 (아래)",
             "from": {
                 "key_code": "j",
                 "modifiers": { "mandatory": ["command"] }
             },
             "to": [
-                {
-                    "key_code": "w",
-                    "modifiers": ["control"]
-                },
+                { "key_code": "w", "modifiers": ["control"] },
                 { "key_code": "j" }
             ],
             "type": "basic"
@@ -124,15 +119,13 @@
                     "type": "frontmost_application_if"
                 }
             ],
+            "description": "Command + K → Vim 분할창 이동 (위)",
             "from": {
                 "key_code": "k",
                 "modifiers": { "mandatory": ["command"] }
             },
             "to": [
-                {
-                    "key_code": "w",
-                    "modifiers": ["control"]
-                },
+                { "key_code": "w", "modifiers": ["control"] },
                 { "key_code": "k" }
             ],
             "type": "basic"
@@ -149,15 +142,13 @@
                     "type": "frontmost_application_if"
                 }
             ],
+            "description": "Command + L → Vim 분할창 이동 (오른쪽)",
             "from": {
                 "key_code": "l",
                 "modifiers": { "mandatory": ["command"] }
             },
             "to": [
-                {
-                    "key_code": "w",
-                    "modifiers": ["control"]
-                },
+                { "key_code": "w", "modifiers": ["control"] },
                 { "key_code": "l" }
             ],
             "type": "basic"
@@ -174,25 +165,15 @@
                     "type": "frontmost_application_if"
                 }
             ],
-            "description": "Command + N / P → 세로 크기 조절",
+            "description": "Command + N → Vim 세로 크기 확장",
             "from": {
                 "key_code": "n",
                 "modifiers": { "mandatory": ["command"] }
             },
             "to": [
-                {
-                    "key_code": "w",
-                    "modifiers": ["control"]
-                },
-                {
-                    "key_code": "3",
-                    "repeat": false
-                },
-                {
-                    "key_code": "equal_sign",
-                    "modifiers": ["shift"],
-                    "repeat": false
-                }
+                { "key_code": "w", "modifiers": ["control"] },
+                { "key_code": "3", "repeat": false },
+                { "key_code": "equal_sign", "modifiers": ["shift"], "repeat": false }
             ],
             "type": "basic"
         },
@@ -208,23 +189,15 @@
                     "type": "frontmost_application_if"
                 }
             ],
+            "description": "Command + P → Vim 세로 크기 축소",
             "from": {
                 "key_code": "p",
                 "modifiers": { "mandatory": ["command"] }
             },
             "to": [
-                {
-                    "key_code": "w",
-                    "modifiers": ["control"]
-                },
-                {
-                    "key_code": "3",
-                    "repeat": false
-                },
-                {
-                    "key_code": "hyphen",
-                    "repeat": false
-                }
+                { "key_code": "w", "modifiers": ["control"] },
+                { "key_code": "3", "repeat": false },
+                { "key_code": "hyphen", "repeat": false }
             ],
             "type": "basic"
         },
@@ -240,29 +213,16 @@
                     "type": "frontmost_application_if"
                 }
             ],
-            "description": "Command + , / . → 가로 크기 조절",
+            "description": "Command + . → Vim 가로 크기 확장",
             "from": {
                 "key_code": "period",
                 "modifiers": { "mandatory": ["command"] }
             },
             "to": [
-                {
-                    "key_code": "w",
-                    "modifiers": ["control"]
-                },
-                {
-                    "key_code": "1",
-                    "repeat": false
-                },
-                {
-                    "key_code": "5",
-                    "repeat": false
-                },
-                {
-                    "key_code": "period",
-                    "modifiers": ["shift"],
-                    "repeat": false
-                }
+                { "key_code": "w", "modifiers": ["control"] },
+                { "key_code": "1", "repeat": false },
+                { "key_code": "3", "repeat": false },
+                { "key_code": "period", "modifiers": ["shift"], "repeat": false }
             ],
             "type": "basic"
         },
@@ -278,28 +238,16 @@
                     "type": "frontmost_application_if"
                 }
             ],
+            "description": "Command + , → Vim 가로 크기 축소",
             "from": {
                 "key_code": "comma",
                 "modifiers": { "mandatory": ["command"] }
             },
             "to": [
-                {
-                    "key_code": "w",
-                    "modifiers": ["control"]
-                },
-                {
-                    "key_code": "1",
-                    "repeat": false
-                },
-                {
-                    "key_code": "5",
-                    "repeat": false
-                },
-                {
-                    "key_code": "comma",
-                    "modifiers": ["shift"],
-                    "repeat": false
-                }
+                { "key_code": "w", "modifiers": ["control"] },
+                { "key_code": "1", "repeat": false },
+                { "key_code": "3", "repeat": false },
+                { "key_code": "comma", "modifiers": ["shift"], "repeat": false }
             ],
             "type": "basic"
         },
@@ -315,16 +263,13 @@
                     "type": "frontmost_application_if"
                 }
             ],
-            "description": "Command + c → pane 닫기",
+            "description": "Command + C → Tmux 현재 Pane 닫기",
             "from": {
                 "key_code": "c",
                 "modifiers": { "mandatory": ["command"] }
             },
             "to": [
-                {
-                    "key_code": "w",
-                    "modifiers": ["control"]
-                },
+                { "key_code": "w", "modifiers": ["control"] },
                 { "key_code": "c" }
             ],
             "type": "basic"
@@ -341,16 +286,13 @@
                     "type": "frontmost_application_if"
                 }
             ],
-            "description": "Command + m → pane 균등",
+            "description": "Command + M → Tmux Pane 크기 균등 조절",
             "from": {
                 "key_code": "m",
                 "modifiers": { "mandatory": ["command"] }
             },
             "to": [
-                {
-                    "key_code": "w",
-                    "modifiers": ["control"]
-                },
+                { "key_code": "w", "modifiers": ["control"] },
                 { "key_code": "equal_sign" }
             ],
             "type": "basic"
@@ -367,16 +309,13 @@
                     "type": "frontmost_application_if"
                 }
             ],
-            "description": "Option + H/J/K/L → tmux pane 이동",
+            "description": "Option + H → Tmux Pane 이동 (왼쪽)",
             "from": {
                 "key_code": "h",
                 "modifiers": { "mandatory": ["option"] }
             },
             "to": [
-                {
-                    "key_code": "a",
-                    "modifiers": ["control"]
-                },
+                { "key_code": "a", "modifiers": ["control"] },
                 { "key_code": "left_arrow" }
             ],
             "type": "basic"
@@ -393,15 +332,13 @@
                     "type": "frontmost_application_if"
                 }
             ],
+            "description": "Option + J → Tmux Pane 이동 (아래)",
             "from": {
                 "key_code": "j",
                 "modifiers": { "mandatory": ["option"] }
             },
             "to": [
-                {
-                    "key_code": "a",
-                    "modifiers": ["control"]
-                },
+                { "key_code": "a", "modifiers": ["control"] },
                 { "key_code": "down_arrow" }
             ],
             "type": "basic"
@@ -418,15 +355,13 @@
                     "type": "frontmost_application_if"
                 }
             ],
+            "description": "Option + K → Tmux Pane 이동 (위)",
             "from": {
                 "key_code": "k",
                 "modifiers": { "mandatory": ["option"] }
             },
             "to": [
-                {
-                    "key_code": "a",
-                    "modifiers": ["control"]
-                },
+                { "key_code": "a", "modifiers": ["control"] },
                 { "key_code": "up_arrow" }
             ],
             "type": "basic"
@@ -443,16 +378,74 @@
                     "type": "frontmost_application_if"
                 }
             ],
+            "description": "Option + L → Tmux Pane 이동 (오른쪽)",
             "from": {
                 "key_code": "l",
                 "modifiers": { "mandatory": ["option"] }
             },
             "to": [
-                {
-                    "key_code": "a",
-                    "modifiers": ["control"]
-                },
+                { "key_code": "a", "modifiers": ["control"] },
                 { "key_code": "right_arrow" }
+            ],
+            "type": "basic"
+        },
+        {
+            "description": "Option + . → Tmux Pane 가로 확장 (>)",
+            "from": {
+                "key_code": "period",
+                "modifiers": { "mandatory": ["option"] }
+            },
+            "to": [
+                { "key_code": "a", "modifiers": ["control"] },
+                { "key_code": "period", "modifiers": ["shift"] }
+            ],
+            "type": "basic"
+        },
+        {
+            "description": "Option + , → Tmux Pane 가로 축소 (<)",
+            "from": {
+                "key_code": "comma",
+                "modifiers": { "mandatory": ["option"] }
+            },
+            "to": [
+                { "key_code": "a", "modifiers": ["control"] },
+                { "key_code": "comma", "modifiers": ["shift"] }
+            ],
+            "type": "basic"
+        },
+        {
+            "description": "Option + N → Tmux Pane 세로 확장 (Up)",
+            "from": {
+                "key_code": "n",
+                "modifiers": { "mandatory": ["option"] }
+            },
+            "to": [
+                { "key_code": "a", "modifiers": ["control"] },
+                { "key_code": "n", "modifiers": ["shift"] }
+            ],
+            "type": "basic"
+        },
+        {
+            "description": "Option + P → Tmux Pane 세로 축소 (Down)",
+            "from": {
+                "key_code": "p",
+                "modifiers": { "mandatory": ["option"] }
+            },
+            "to": [
+                { "key_code": "a", "modifiers": ["control"] },
+                { "key_code": "p", "modifiers": ["shift"] }
+            ],
+            "type": "basic"
+        },
+        {
+            "description": "Option + X → Tmux 현재 Pane 닫기",
+            "from": {
+                "key_code": "x",
+                "modifiers": { "mandatory": ["option"] }
+            },
+            "to": [
+                { "key_code": "a", "modifiers": ["control"] },
+                { "key_code": "x" }
             ],
             "type": "basic"
         }
