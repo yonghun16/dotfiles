@@ -28,13 +28,11 @@ import * as fs from "fs";
 import * as path from "path";
 
 const filePath: string = path.join(process.cwd(), "input_test.txt");
-let input: string[] = [];
+const input: string[] = fs.existsSync(filePath)
+  ? fs.readFileSync(filePath, "utf8").trim().split(/\s+/)
+  : fs.readFileSync(0, "utf8").trim().split(/\s+/);
 
-if (fs.existsSync(filePath)) {
-  input = fs.readFileSync(filePath, "utf-8").trim().split("\n");
-} else {
-  input = fs.readFileSync(0, "utf-8").trim().split("\n");
-}
+let inputIdx: number = 0;
 
 ]],
       {
