@@ -32,11 +32,11 @@ file_path = os.path.join(os.path.dirname(__file__), "input_test.txt")
 
 if os.path.exists(file_path):
     with open(file_path, "r", encoding="utf-8") as f:
-        lines = f.read().splitlines()
+        token = f.read().split()
 else:
-    lines = sys.stdin.read().splitlines()
+    token = sys.stdin.read().split()
 
-input = iter(lines).__next__
+input = iter(token).__next__
 
 
 ]],
