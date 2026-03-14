@@ -28,15 +28,24 @@ Details
 import os
 import sys
 
-file_path = os.path.join(os.path.dirname(__file__), "input_test.txt")
 
-if os.path.exists(file_path):
-    with open(file_path, "r", encoding="utf-8") as f:
-        token = f.read().split()
-else:
-    token = sys.stdin.read().split()
+def get_input():
+    file_path = os.path.join(os.path.dirname(__file__), "input_test.txt")
+    if os.path.exists(file_path):
+        f = open(file_path, "r", encoding="utf-8")
+    else:
+        f = sys.stdin
 
-input = iter(token).__next__
+    for line in f:
+        for char in line.split():
+            yield char
+
+
+tokens = get_input()
+
+
+def input():
+    return next(tokens)
 
 
 ]],
