@@ -7,10 +7,20 @@ local map = vim.keymap.set
 local api = require "nvim-tree.api"
 local dap = require "dap"
 local dapui = require "dapui"
-vim.api.nvim_del_keymap("n", "<leader>e") -- nvimtree focus window
-vim.api.nvim_del_keymap("n", "<leader>n") -- toogle number line
-vim.api.nvim_del_keymap("n", "<leader>v") -- terminal new vertical term
-vim.keymap.set("n", "s", "")
+local del = vim.api.nvim_del_keymap
+
+-- ================================================================
+-- Remove NvChad Default Keymaps
+-- ================================================================
+del("n", "<A-i>")
+del("n", "<A-h>")
+del("n", "<A-v>")
+del("t", "<A-i>")
+del("t", "<A-h>")
+del("t", "<A-v>")
+del("n", "<leader>e") -- nvimtree focus window
+del("n", "<leader>n") -- toogle number line
+del("n", "<leader>v") -- terminal new vertical term
 
 -- ================================================================
 -- Escape, Quit
