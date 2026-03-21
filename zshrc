@@ -1,117 +1,100 @@
 # ==========================================
-# 1. Zinit 설치 및 초기화 (가장 먼저 실행)
+# 1. 환경 변수 (Export) - 가장 먼저 로드
 # ==========================================
-if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
-    print -P "%F{33} %F{220}Installing %F{33}ZINIT%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
-    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
-    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
-        print -P "%F{33} %F{34}Installation successful.%f%b" || \
-        print -P "%F{160} The clone has failed.%f%b"
+export LANG=ko_KR.UTF-8
+export EDITOR="nvim"
+
+# Homebrew & 기본 경로
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+
+# Node.js (PNPM & NVM)
+export PNPM_HOME="$HOME/Library/pnpm"
+export NVM_DIR="$HOME/.nvm"
+export PATH="$PNPM_HOME:$PATH"
+
+# Python
+export PATH="$HOME/Library/Python/3.9/bin:$PATH" # site-packages보다 bin 폴더가 우선입니다.
+
+# Java & Android
+export JAVA_HOME="/opt/homebrew/opt/openjdk@21"
+export ANDROID_HOME="$HOME/Library/Android/sdk"
+export PATH="$JAVA_HOME/bin:$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$PATH"
+
+# ==========================================
+# 2. Zinit 설치 및 초기화
+# ==========================================
+ZINIT_HOME="$HOME/.local/share/zinit/zinit.git"
+if [[ ! -f "$ZINIT_HOME/zinit.zsh" ]]; then
+    print -P "%F{33}Installing Zinit...%f"
+    command mkdir -p "$(dirname $ZINIT_HOME)"
+    command git clone https://github.com/zdharma-continuum/zinit "$ZINIT_HOME"
 fi
 
-source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+source "$ZINIT_HOME/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
-
 # ==========================================
-# 2. Powerlevel10k 테마 설정 (예쁜 터미널 복구)
+# 3. 테마 및 플러그인 (Turbo Mode 적용)
 # ==========================================
-# p10k 테마를 가장 먼저 로딩해야 합니다.
-zinit ice depth=1
-zinit light romkatv/powerlevel10k
 
-# 기존 p10k 설정 파일이 있다면 로드
+# [Theme] Powerlevel10k
+zinit ice depth=1; zinit light romkatv/powerlevel10k
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+# [Snippets] Oh My Zsh 핵심 기능
+zinit snippet OMZL::history.zsh
+zinit snippet OMZL::completion.zsh
+zinit snippet OMZL::key-bindings.zsh
+zinit snippet OMZL::directories.zsh
+zinit snippet OMZP::git # git 플러그인으로 가져오는 것이 더 효율적입니다.
 
-# ==========================================
-# 3. Oh My Zsh 핵심 라이브러리 (기능만 가져오기)
-# ==========================================
-zinit snippet OMZL::functions.zsh      # 필수 함수
-zinit snippet OMZL::git.zsh            # git 단축키 (gst, gco 등)
-zinit snippet OMZL::history.zsh        # 히스토리 설정
-zinit snippet OMZL::completion.zsh     # 자동완성 강화
-zinit snippet OMZL::key-bindings.zsh   # 키 바인딩
-zinit snippet OMZL::termsupport.zsh    # 터미널 지원
-zinit snippet OMZL::theme-and-appearance.zsh # 테마
-zinit snippet OMZL::directories.zsh          # 파일과 폴더 관리
-
-
-# ==========================================
-# 4. 플러그인 (속도 향상 적용)
-# ==========================================
-# 자동완성 (회색 글씨 추천)
-zinit light zsh-users/zsh-autosuggestions
-
-# 구문 강조 (명령어 색깔 입히기) - Turbo Mode 적용
+# [Plugins] 자동완성 및 하이라이트 (속도 최적화)
+zinit ice wait'0a' lucid; zinit light zsh-users/zsh-autosuggestions
 zinit ice wait'0a' lucid atinit"ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)"
 zinit light zsh-users/zsh-syntax-highlighting
-
+zinit ice wait'0b' lucid; zinit light zsh-users/zsh-completions
 
 # ==========================================
-# 5. 사용자 환경 변수 및 설정 (PATH 등)
+# 4. 사용자 설정 (Options & Aliases)
 # ==========================================
-# Homebrew Path
-export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
-
-# Python / Pip
-export PATH="/Users/song-yonghun/Library/Python/3.9/lib/python/site-packages:$PATH"
-export PATH="/Users/song-yonghun/.local/bin:$PATH"
-
-# Java
-export JAVA_HOME="/opt/homebrew/opt/openjdk@21"
-export PATH="$JAVA_HOME/bin:/opt/homebrew/opt/openjdk/bin:$PATH"
-
-# User Options
 setopt promptsubst
 setopt SHARE_HISTORY
 HISTSIZE=10000
 SAVEHIST=10000
 
-
-# ==========================================
-# 6. 사용자 Aliases
-# ==========================================
-alias cp="cp -i"
-alias ll="eza --icons -l --group-directories-first --git"
-alias ls="eza --icons --group-directories-first"
-alias mv='mv -i'
-alias rm="trash"
-alias swap="rm -rf ~/.local/state/nvim/swap/*"
-alias tree="eza --icons --tree"
-alias t="tmux attach -t main || tmux new -s main"
+# Aliases
 alias vi="nvim"
+alias ls="eza --icons --group-directories-first"
+alias ll="eza -l --icons --group-directories-first --git"
+alias tree="eza --tree --icons"
+alias rm="trash"
+alias cp="cp -i"
+alias mv="mv -i"
+alias swap="rm -rf ~/.local/state/nvim/swap/*"
+alias t="tmux attach -t main || tmux new -s main"
+
+# Tmux 특정 설정
 if [ -n "$TMUX" ]; then
-  alias exit="tmux detach"
-  export IGNOREEOF=10 # Ctrl+d를 10번 연타해야 꺼짐 (실수 방지)
+    alias exit="tmux detach"
+    export IGNOREEOF=10
 fi
 
-# Neofetch (터미널 켤 때 정보 표시)
-neofetch
-
-
 # ==========================================
-# 7. 외부 도구 로딩 (NVM, SDKMAN, PNPM)
+# 5. 외부 도구 지연 로딩 (속도 향상의 핵심)
 # ==========================================
-# NVM
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" 
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-# PNPM
-export PNPM_HOME="/Users/song-yonghun/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
+# NVM (필요할 때 로드하여 터미널 시작 속도 개선)
+zinit ice wait'0b' lucid trigger'nvm'
+zinit snippet "$NVM_DIR/nvm.sh"
 
-# SDKMAN (파일 맨 끝 권장)
+# SDKMAN
 export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+[[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
 
 # iTerm2 Integration
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true
+[[ -e "${HOME}/.iterm2_shell_integration.zsh" ]] && source "${HOME}/.iterm2_shell_integration.zsh"
 
-# OpenAI Key (보안을 위해 실제 키는 파일에서 관리하거나 주의하세요!)
-# export OPENAI_API_KEY='YOUR_KEY_HERE'
+# 마무리 정보 표시
+clear && neofetch
