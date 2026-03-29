@@ -39,6 +39,11 @@ local plugins = {
           css = { "prettier" },
           sh = { "shfmt" },
         },
+        formatters = {
+          black = {
+            prepend_args = { "--line-length", "79" },
+          },
+        },
         format_on_save = {
           timeout_ms = 3000,
           lsp_fallback = true,
