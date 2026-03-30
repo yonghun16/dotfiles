@@ -167,10 +167,8 @@ end, { desc = "toggle Outline" })
 
 -- l : Gemini (right side)
 map("n", "<leader>l", ToggleGeminiCli, { desc = "toggle Gemini CLI", noremap = true, silent = true })
-
--- map("n", "<leader>l", function()
---   require("custom.gemini-cli").toggle()
--- end, { desc = "toggle Gemini CLI", noremap = true, silent = true })
+map("n", "<leader>gn", NewGeminiSession, { desc = "new Gemini CLI", noremap = true, silent = true })
+map("n", "<leader>gs", SelectGeminiSession, { desc = "select Gemini CLI session", noremap = true, silent = true })
 
 -- ================================================================
 -- Finder (fzf-lua)
