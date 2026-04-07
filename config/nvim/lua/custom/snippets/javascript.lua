@@ -25,14 +25,14 @@ return {
  */
 
 const fs = require("fs");
-const path = require("path");
 
-const filePath = path.join(process.cwd(), "input_test.txt");
-const input = fs.existsSync(filePath)
-  ? fs.readFileSync(filePath, "utf8").trim().split(/\s+/)
-  : fs.readFileSync(0, "utf8").trim().split(/\s+/);
+const filePath = fs.existsSync("./input_test.txt")
+  ? "./input_test.txt"
+  : "/dev/stdin";
+const input = fs.readFileSync(filePath, "utf-8").trim().split(/\s+/);
 
 let inputIdx = 0;
+
 
 ]],
       {
