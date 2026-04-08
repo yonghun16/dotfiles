@@ -25,12 +25,12 @@ return {
  */
 
 import * as fs from "fs";
-import * as path from "path";
 
-const filePath: string = path.join(process.cwd(), "input_test.txt");
-const input: string[] = fs.existsSync(filePath)
-  ? fs.readFileSync(filePath, "utf8").trim().split(/\s+/)
-  : fs.readFileSync(0, "utf8").trim().split(/\s+/);
+const filePath: string = fs.existsSync("./input_test.txt")
+  ? "./input_test.txt"
+  : "/dev/stdin";
+
+const input: string[] = fs.readFileSync(filePath, "utf-8").trim().split(/\s+/);
 
 let inputIdx: number = 0;
 

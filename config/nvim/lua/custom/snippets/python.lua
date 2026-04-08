@@ -28,26 +28,18 @@ Details
 import os
 import sys
 
+file_path = os.path.join(os.path.dirname(__file__), "input_test.txt")
 
-def get_input():
-    file_path = os.path.join(os.path.dirname(__file__), "input_test.txt")
-    if os.path.exists(file_path):
-        f = open(file_path, "r", encoding="utf-8")
-    else:
-        f = sys.stdin
-
-    for line in f:
-        for char in line.split():
-            yield char
+if os.path.exists(file_path):
+    sys.stdin = open(file_path, "r", encoding="utf-8")
 
 
-tokens = get_input()
+def solve():
+    pass
 
 
-def input():
-    return next(tokens)
-
-
+if __name__ == "__main__":
+    solve()
 ]],
       {
         c(1, { i(nil, "BOJ"), i(nil, "Programmers") }),
