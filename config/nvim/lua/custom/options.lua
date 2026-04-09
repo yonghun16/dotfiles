@@ -73,9 +73,9 @@ require("nvim-tree").setup {
 
     vim.keymap.del("n", "<C-k>", { buffer = bufnr }) -- Ctrl+k 제거
     vim.keymap.set("n", "K", api.node.show_info_popup, opts "Show Info") -- Shift+k 로 파일 정보 보기
-    vim.keymap.set("n", "i", api.node.open.vertical, opts "Open: Vertical Split")
-    vim.keymap.set("n", "s", api.node.open.horizontal, opts "Open: Horizontal Split")
-    vim.keymap.set("n", "t", api.node.open.tab, opts "Open: New Tab")
+    vim.keymap.set("n", "i", api.node.open.vertical, opts "Open: Vertical Split") -- 수직분할로 열기
+    vim.keymap.set("n", "s", api.node.open.horizontal, opts "Open: Horizontal Split") -- 수평분할로 열기
+    vim.keymap.set("n", "t", api.node.open.tab, opts "Open: New Tab") -- 새 탭으로 열기
   end,
 }
 
@@ -83,13 +83,36 @@ require("nvim-tree").setup {
 vim.cmd [[ let g:VM_maps = {} ]]
 vim.cmd [[ let g:VM_maps["Find Under"] = 's/' ]]
 vim.cmd [[ let g:VM_maps["Find Subword Under"] = 's/' ]]
-vim.cmd [[ let g:VM_maps["Add Cursor Down"] = 'sj' ]]
+vim.cmd [[ let g:VM_maps["Add Cursor Down"] = 'sj' ]] -- 현재 커서 위치에서 아래 방향(j)으로 새로운 커서를 추가합니다.
 vim.cmd [[ let g:VM_maps["Add Cursor Up"] = 'sk' ]]
 vim.cmd [[ let g:VM_maps["Move Right"] = 'sl' ]]
 vim.cmd [[ let g:VM_maps["Move Left"] = 'sh' ]]
 vim.cmd [[ let g:VM_maps["Mouse Cursor"] = 's<LeftMouse>' ]]
-vim.cmd [[ let g:VM_maps["Add Cursor At Pos"] = 's<CR>' ]]
+vim.cmd [[ let g:VM_maps["Add Cursor At Pos"] = 's<CR>' ]] -- 현재 커서가 있는 위치에 멀티 커서를 확정적으로 추가(Enter)합니다.
 vim.cmd [[ let g:VM_maps["Select Operator"] = 'ss' ]]
+
+-- illuminate
+function SmartNextJump()
+  if vim.v.hlsearch == 1 then
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("n", true, false, true), "n", false)
+  else
+    local status, illuminate = pcall(require, "illuminate")
+    if status then
+      illuminate.goto_next_reference(false)
+    end
+  end
+end
+
+function SmartPrevJump()
+  if vim.v.hlsearch == 1 then
+    vim.api.nvim_api.nvim_feedkeys(vim.api.nvim_replace_termcodes("N", true, false, true), "n", false)
+  else
+    local status, illuminate = pcall(require, "illuminate")
+    if status then
+      illuminate.goto_prev_reference(false)
+    end
+  end
+end
 
 -- ================================================================
 -- Gemini CLI Session Management

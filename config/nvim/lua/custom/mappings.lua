@@ -67,6 +67,10 @@ map("v", "<S-j>", ":m '>+1<CR>gv=gv")
 map("v", ">", ">gv")
 map("v", "<", "<gv")
 
+-- Smart Search
+map("n", "n", SmartNextJump, { desc = "Smart Next (Search or Illuminate)" })
+map("n", "N", SmartPrevJump, { desc = "Smart Prev (Search or Illuminate)" })
+
 -- Tab move
 map("n", "te", function() -- new tab
   vim.cmd "tabedit"
