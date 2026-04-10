@@ -105,7 +105,7 @@ end
 
 function SmartPrevJump()
   if vim.v.hlsearch == 1 then
-    vim.api.nvim_api.nvim_feedkeys(vim.api.nvim_replace_termcodes("N", true, false, true), "n", false)
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("N", true, false, true), "n", false)
   else
     local status, illuminate = pcall(require, "illuminate")
     if status then
