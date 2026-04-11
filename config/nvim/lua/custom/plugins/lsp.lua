@@ -2,6 +2,31 @@ local plugins = {
   -- ================================================================
   -- LSP & Formatter & Lintter & Treesitter
   -- ================================================================
+  -- nvim-lspconfig (LSP 설정 및 팝업 테두리 추가)
+  -- nvim-lspconfig (LSP 설정 및 모든 팝업 테두리 강제 적용)
+  {
+    "neovim/nvim-lspconfig",
+    init = function()
+      -- 모든 LSP 팝업(Hover, Signature Help 등)의 테두리를 "rounded"로 고정
+      local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+
+      ---@diagnostic disable-next-line: duplicate-set-field
+      function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+        opts = opts or {}
+        opts.border = opts.border or "rounded" -- 테두리가 없을 때만 rounded 적용
+        return orig_util_open_floating_preview(contents, syntax, opts, ...)
+      end
+
+      -- 진단(Diagnostic) 팝업 테두리 설정
+      vim.diagnostic.config {
+        float = { border = "rounded" },
+      }
+    end,
+    config = function()
+      require("nvchad.configs.lspconfig").defaults()
+    end,
+  },
+
   -- mason.nvim (LSP)
   {
     "williamboman/mason.nvim",

@@ -28,6 +28,7 @@ del("n", "<leader>v") -- terminal new vertical term
 map({ "n", "i", "v", "c" }, "<C-c>", "<ESC>")
 map("t", "<ESC>", "<C-\\><C-n>")
 map("n", "<leader>q", SafeQuitAll, { desc = "Safe Quit All", noremap = true, silent = true })
+map("n", "<leader>X", "<cmd>confirm bd | close<CR>", { desc = "Close Buffer & Split", noremap = true, silent = true })
 
 -- ================================================================
 -- Editor Mappings
@@ -46,7 +47,7 @@ end, { desc = "change root to current file dir" })
 map("n", "<leader>dv", ":vert diffsplit ", { desc = "Diffsplit (compare files)" })
 
 -- Highlight Current Word
-map('n', '<C-_>', '*N')
+map("n", "<C-_>", "*N")
 
 -- Mapping Overview (which-key)
 map("n", "<leader>m", function()
@@ -60,10 +61,12 @@ map("n", "<leader>rf", ReloadAndLSPRestart, { desc = "Reload File and LSP" })
 map("n", "<leader>a", Compile, { desc = "Run Code" })
 map("n", "<leader>rs", CompileSingle, { desc = "Run Single Code" })
 
--- See Diagnostics message
-map("n", "sd", vim.diagnostic.open_float)
+-- Show Diagnostics message
+map("n", "sd", function()
+  vim.diagnostic.open_float { border = "rounded" }
+end, { desc = "See Diagnostics message" })
 
--- See Signature help
+-- Show Signature help
 map("n", "ss", vim.lsp.buf.signature_help)
 
 -- Toggle FoldColumn
@@ -102,8 +105,8 @@ map({ "n", "v" }, "<C-j>", "5j")
 map({ "n", "v" }, "<C-k>", "5k")
 map({ "n", "v" }, "<C-l>", "$")
 map({ "n", "v" }, "<C-;>", "%")
-map("n", "n", SmartNextJump, { desc = "Smart Next (Search or Illuminate)" })
-map("n", "N", SmartPrevJump, { desc = "Smart Prev (Search or Illuminate)" })
+map("n", "n", "<cmd>lua SmartNextJump()<CR>", { desc = "Smart Next (Search or Illuminate)" })
+map("n", "N", "<cmd>lua SmartPrevJump()<CR>", { desc = "Smart Prev (Search or Illuminate)" })
 
 -- Screen move
 map({ "n", "v" }, "<C-n>", "5<C-e>")
@@ -166,9 +169,9 @@ map("n", "<leader>k", function()
 end, { desc = "toggle Outline" })
 
 -- l : Gemini (right side)
-map("n", "<leader>l", ToggleGeminiCli, { desc = "toggle Gemini CLI", noremap = true, silent = true })
-map("n", "<leader>gn", NewGeminiSession, { desc = "new Gemini CLI", noremap = true, silent = true })
-map("n", "<leader>gs", SelectGeminiSession, { desc = "select Gemini CLI session", noremap = true, silent = true })
+map("n", "<leader>l", "<cmd>lua ToggleGeminiCli()<CR>", { desc = "toggle Gemini CLI" })
+map("n", "<leader>gn", "<cmd>lua NewGeminiSession()<CR>", { desc = "new Gemini CLI session" })
+map("n", "<leader>gs", "<cmd>lua SelectGeminiSession()<CR>", { desc = "select Gemini CLI session" })
 
 -- Floating Terminal
 map({ "n", "t" }, "<leader><leader>", function()
@@ -176,7 +179,7 @@ map({ "n", "t" }, "<leader><leader>", function()
 end, { desc = "Terminal (floating)" })
 
 -- ================================================================
--- fzf Finder (fzf-lua)
+-- Finder (fzf-lua)
 -- ================================================================
 -- Find Files
 map("n", "<leader>ff", function()
@@ -209,8 +212,11 @@ map("n", "<leader>fd", function()
 end, { desc = "fzf Find Definition" })
 
 -- ================================================================
--- AI (Codeium)
+-- AI Auto Completion (Codeium)
 -- ================================================================
+-- Toggle AI Auto Completion (AI 자동완성 켜기/끄기)
+map("n", "<leader>ta", "<cmd>lua ToggleAIAutoComplete()<CR>", { desc = "toggle AI code completion" })
+
 -- Navigate completion menu (자동완성 메뉴 이동)
 vim.api.nvim_set_keymap("i", "<Tab>", 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', { noremap = true, expr = true })
 
@@ -250,9 +256,6 @@ end, { silent = true, desc = "Clear Codeium suggestion" })
 
 -- Restore Jump Forward (점프 앞으로 가기 복구)
 map("n", "<C-i>", "<C-i>", { noremap = true, silent = true })
-
--- Toggle AI Auto Completion (AI 자동완성 켜기/끄기)
-map("n", "<leader>ta", ToggleAIAutoComplete, { desc = "toggle AI code completion" })
 
 -- ================================================================
 -- Debugging (nvim-dap)
