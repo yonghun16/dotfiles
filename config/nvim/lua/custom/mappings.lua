@@ -23,11 +23,59 @@ del("n", "<leader>n") -- toogle number line
 del("n", "<leader>v") -- terminal new vertical term
 
 -- ================================================================
--- Escape, Quit
+-- Escape, Save & Quit
 -- ================================================================
 map({ "n", "i", "v", "c" }, "<C-c>", "<ESC>")
 map("t", "<ESC>", "<C-\\><C-n>")
 map("n", "<leader>q", SafeQuitAll, { desc = "Safe Quit All", noremap = true, silent = true })
+
+-- ================================================================
+-- Editor Mappings
+-- ================================================================
+-- Create Code Annotation (Neogen)
+map("n", "<leader>ca", ":Neogen<CR>", { desc = "Create code Annotation", silent = true })
+
+-- Change root directory
+map("n", "<leader>.", function()
+  local path = vim.fn.expand "%:p:h"
+  api.tree.change_root(path)
+  vim.notify("NvimTree root changed to: " .. path, vim.log.levels.INFO)
+end, { desc = "change root to current file dir" })
+
+-- Diffsplit Vertical
+map("n", "<leader>dv", ":vert diffsplit ", { desc = "Diffsplit (compare files)" })
+
+-- Highlight Current Word
+map('n', '<C-_>', '*N')
+
+-- Mapping Overview (which-key)
+map("n", "<leader>m", function()
+  vim.cmd "WhichKey <leader>"
+end, { desc = "mapping overview (which-key)" })
+
+-- Reload File
+map("n", "<leader>rf", ReloadAndLSPRestart, { desc = "Reload File and LSP" })
+
+-- Run Code (All, Single)
+map("n", "<leader>a", Compile, { desc = "Run Code" })
+map("n", "<leader>rs", CompileSingle, { desc = "Run Single Code" })
+
+-- See Diagnostics message
+map("n", "sd", vim.diagnostic.open_float)
+
+-- See Signature help
+map("n", "ss", vim.lsp.buf.signature_help)
+
+-- Toggle FoldColumn
+map("n", "<leader>tf", ToggleFoldColumn, { desc = "toggle FoldColumn" })
+
+-- Toggle Transparency
+map(
+  "n",
+  "<leader>tt",
+  ":lua require('base46').toggle_transparency()<CR>",
+  { noremap = true, silent = true, desc = "toggle Transparency" }
+)
 
 -- ================================================================
 -- Apply Terminal Keybindings in INSERT Mode
@@ -48,12 +96,14 @@ map("i", "<C-s>", "<Esc><C-s>")
 -- ================================================================
 -- Moving (Cursor, Screen, Block, Tab, Splits)
 -- ================================================================
--- Cursor move
+-- Cursor move, jump
 map({ "n", "v" }, "<C-h>", "^")
 map({ "n", "v" }, "<C-j>", "5j")
 map({ "n", "v" }, "<C-k>", "5k")
 map({ "n", "v" }, "<C-l>", "$")
 map({ "n", "v" }, "<C-;>", "%")
+map("n", "n", SmartNextJump, { desc = "Smart Next (Search or Illuminate)" })
+map("n", "N", SmartPrevJump, { desc = "Smart Prev (Search or Illuminate)" })
 
 -- Screen move
 map({ "n", "v" }, "<C-n>", "5<C-e>")
@@ -61,15 +111,11 @@ map({ "n", "v" }, "<C-p>", "5<C-y>")
 map({ "n", "v" }, "<C-.>", "6zl")
 map({ "n", "v" }, "<C-,>", "6zh")
 
--- Visual block move
+-- Visual Block move
 map("v", "<S-k>", ":m '<-2<CR>gv=gv")
 map("v", "<S-j>", ":m '>+1<CR>gv=gv")
 map("v", ">", ">gv")
 map("v", "<", "<gv")
-
--- Smart Search
-map("n", "n", SmartNextJump, { desc = "Smart Next (Search or Illuminate)" })
-map("n", "N", SmartPrevJump, { desc = "Smart Prev (Search or Illuminate)" })
 
 -- Tab move
 map("n", "te", function() -- new tab
@@ -95,56 +141,6 @@ map("t", "<C-w>h", "<C-\\><C-n><C-w>h")
 map("t", "<C-w>j", "<C-\\><C-n><C-w>j")
 map("t", "<C-w>k", "<C-\\><C-n><C-w>k")
 map("t", "<C-w>l", "<C-\\><C-n><C-w>l")
-
--- ================================================================
--- Editor
--- ================================================================
--- Create Annotation
-map("n", "<leader>ca", ":Neogen<CR>", { desc = "Create code Annotation", silent = true })
-
--- change root directory
-map("n", "<leader>.", function()
-  local path = vim.fn.expand "%:p:h"
-  api.tree.change_root(path)
-  vim.notify("NvimTree root changed to: " .. path, vim.log.levels.INFO)
-end, { desc = "change root to current file dir" })
-
--- Diffsplit Vertical(파일 비교)
-map("n", "<leader>dv", ":vert diffsplit ", { desc = "Diffsplit (compare files)" })
-
--- Run code (All, Single)
-map("n", "<leader>a", Compile, { desc = "Run Code" })
-map("n", "<leader>rs", CompileSingle, { desc = "Run Single Code" })
-
--- Reload File
-map("n", "<leader>rf", ReloadAndLSPRestart, { desc = "Reload File and LSP" })
-
--- See which-key
-map("n", "<leader>s", function()
-  vim.cmd "WhichKey <leader>"
-end, { desc = "find mappings (which-key)" })
-
--- See Diagnostics message
-map("n", "sd", vim.diagnostic.open_float)
-
--- See Signature help
-map("n", "ss", vim.lsp.buf.signature_help)
-
--- Toggle FoldColumn
-map("n", "<leader>tf", ToggleFoldColumn, { desc = "toggle FoldColumn" })
-
--- Toggle Transparency
-map(
-  "n",
-  "<leader>tt",
-  ":lua require('base46').toggle_transparency()<CR>",
-  { noremap = true, silent = true, desc = "toggle Transparency" }
-)
-
--- Terminal (floating)
-map({ "n", "t" }, "<leader><leader>", function()
-  vim.cmd "ToggleTerm direction=float"
-end, { desc = "Terminal (floating)" })
 
 -- ================================================================
 -- Sidebars (h, j, k, l)
@@ -174,8 +170,13 @@ map("n", "<leader>l", ToggleGeminiCli, { desc = "toggle Gemini CLI", noremap = t
 map("n", "<leader>gn", NewGeminiSession, { desc = "new Gemini CLI", noremap = true, silent = true })
 map("n", "<leader>gs", SelectGeminiSession, { desc = "select Gemini CLI session", noremap = true, silent = true })
 
+-- Floating Terminal
+map({ "n", "t" }, "<leader><leader>", function()
+  vim.cmd "ToggleTerm direction=float"
+end, { desc = "Terminal (floating)" })
+
 -- ================================================================
--- Finder (fzf-lua)
+-- fzf Finder (fzf-lua)
 -- ================================================================
 -- Find Files
 map("n", "<leader>ff", function()
@@ -208,7 +209,7 @@ map("n", "<leader>fd", function()
 end, { desc = "fzf Find Definition" })
 
 -- ================================================================
--- AI (windsurf.vim)
+-- AI (Codeium)
 -- ================================================================
 -- Navigate completion menu (자동완성 메뉴 이동)
 vim.api.nvim_set_keymap("i", "<Tab>", 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', { noremap = true, expr = true })

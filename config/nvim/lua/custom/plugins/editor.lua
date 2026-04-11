@@ -38,8 +38,16 @@ local plugins = {
 
   -- vim-illuminate (단어 하이라이트)
   {
-    "RRethy/vim-illuminate",
+  "RRethy/vim-illuminate",
     event = { "BufReadPost", "BufNewFile" },
+    config = function()
+      require("illuminate").configure({
+        providers = {
+          "lsp",
+          "regex",
+        },
+      })
+    end,
   },
 
   -- vim-visual-multi (멀티 커서)
