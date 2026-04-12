@@ -32,8 +32,20 @@ const filePath = fs.existsSync("./input_test.txt")
 
 const input = fs.readFileSync(filePath, "utf-8").trim().split(/\s+/);
 
-let inputIdx = 0;
+// get input data
+const getInputData = () =>> {
+  let idx = 0;
+};
 
+// solve
+const solve = () =>> {};
+
+const main = () =>> {
+  getInputData();
+  solve();
+};
+
+main();
 ]],
       {
         c(1, { i(nil, "BOJ"), i(nil, "Programmers") }),

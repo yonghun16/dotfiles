@@ -34,11 +34,18 @@ if os.path.exists(file_path):
     sys.stdin = open(file_path, "r", encoding="utf-8")
 
 
+# get input data
+def get_input_data():
+    pass
+
+
+# solve
 def solve():
     pass
 
 
 if __name__ == "__main__":
+    get_input_data()
     solve()
 ]],
       {
