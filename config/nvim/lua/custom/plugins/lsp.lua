@@ -3,7 +3,6 @@ local plugins = {
   -- LSP & Formatter & Lintter & Treesitter
   -- ================================================================
   -- nvim-lspconfig (LSP 설정 및 팝업 테두리 추가)
-  -- nvim-lspconfig (LSP 설정 및 모든 팝업 테두리 강제 적용)
   {
     "neovim/nvim-lspconfig",
     init = function()
@@ -27,11 +26,12 @@ local plugins = {
     end,
   },
 
-  -- mason.nvim (LSP)
+  -- mason.nvim (LSP, Formatter, Linter 통합 관리)
   {
     "williamboman/mason.nvim",
     opts = {
       ensure_installed = {
+        -- LSP
         "pyright",
         "typescript-language-server",
         "tailwindcss-language-server",
@@ -42,6 +42,24 @@ local plugins = {
         "jdtls",
         "sqlls",
         "emmet-language-server",
+
+        -- Formatter (conform.nvim에서 사용하는 것들)
+        "stylua",
+        "isort",
+        "black",
+        "prettier",
+        "clang-format",
+        "google-java-format",
+        "shfmt",
+
+        -- Linter (nvim-lint에서 사용하는 것들)
+        "flake8",
+        "eslint_d",
+        "cpplint",
+        "checkstyle",
+        "htmlhint",
+        "stylelint",
+        "shellcheck",
       },
     },
   },

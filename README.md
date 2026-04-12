@@ -86,6 +86,9 @@ end)
 #### 🔵 Manual plugins setting
 - package (bash)
   ```bash
+  brew install luarocks fd fzf ripgrep gemini-cli
+  ```
+  ```bash
   pip3 install debugpy
   ```
   ```bash
@@ -160,6 +163,7 @@ end)
 ## 3. Neovim Plugins info
 #### AI
   - windsurf.vim (AI 코드 자동완성)
+  - gemini-cli (AI 코딩 어시스턴트)
 
 #### Coding
   - LuaSnip (스니펫)
