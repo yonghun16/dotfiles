@@ -86,7 +86,7 @@ end)
 #### 🔵 Manual plugins setting
 - package (bash)
   ```bash
-  brew install luarocks fd fzf ripgrep gemini-cli
+  brew install luarocks fd fzf ripgrep tree-sitter-cli gemini-cli
   ```
   ```bash
   pip3 install debugpy
