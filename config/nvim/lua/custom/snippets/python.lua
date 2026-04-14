@@ -20,7 +20,7 @@ Link   : {}
 Level  : 
 Tag    : Python, 
 -----------------------------------------------------------
-Details
+Solution
 {}
 -----------------------------------------------------------
 """
@@ -39,14 +39,14 @@ def get_input_data():
     pass
 
 
-# solve
-def solve():
+# solution
+def solution():
     pass
 
 
 if __name__ == "__main__":
     get_input_data()
-    solve()
+    solution()
 ]],
       {
         c(1, { i(nil, "BOJ"), i(nil, "Programmers") }),
@@ -76,7 +76,7 @@ if __name__ == "__main__":
 File    : {}
 Brief   : {}
 -----------------------------------------------------------
-Details
+Abstract
 {}
 -----------------------------------------------------------
 """
