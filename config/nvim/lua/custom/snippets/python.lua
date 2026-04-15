@@ -34,16 +34,17 @@ if os.path.exists(file_path):
     sys.stdin = open(file_path, "r", encoding="utf-8")
 
 
-# get input data
+# 📥 Get Input Data
 def get_input_data():
     pass
 
 
-# solution
+# ⚙️Core Logic
 def solution():
     pass
 
 
+// 🚀 Run Program
 if __name__ == "__main__":
     get_input_data()
     solution()

@@ -13,7 +13,8 @@ return {
     "headerComment OJ",
     fmt(
       [[
-/** -----------------------------------------------------------
+/** 
+ * -----------------------------------------------------------
  * Sub    : [<>] <>
  * Link   : <>
  * Level  : 
@@ -32,20 +33,19 @@ const filePath = fs.existsSync("./input_test.txt")
 
 const input = fs.readFileSync(filePath, "utf-8").trim().split(/\s+/);
 
-// get input data
+// 📥 Get Input Data
 const getInputData = () =>> {
   let idx = 0;
 };
 
-// solution
+// ⚙️Core Logic
 const solution = () =>> {};
 
-const main = () =>> {
+// 🚀 Run Program
+(() => {
   getInputData();
   solution();
-};
-
-main();
+})();
 ]],
       {
         c(1, { i(nil, "BOJ"), i(nil, "Programmers") }),

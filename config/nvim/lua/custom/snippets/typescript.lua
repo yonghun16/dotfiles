@@ -19,7 +19,7 @@ return {
  * Level  : 
  * Tag    : TS, 
  * ------------------------------------------------------------
- * Abstract
+ * solution
  * <>
  * ------------------------------------------------------------
  */
@@ -32,20 +32,19 @@ const filePath: string = fs.existsSync("./input_test.txt")
 
 const input: string[] = fs.readFileSync(filePath, "utf-8").trim().split(/\s+/);
 
-// get input data
+// 📥 Get Input Data
 const getInputData = () =>> {
   let idx: number = 0;
 };
 
-// solution
+// ⚙️Core Logic
 const solution = () =>> {};
 
-const main = () =>> {
+// 🚀 Run Program
+(() => {
   getInputData();
   solution();
-};
-
-main();
+})();
 ]],
       {
         c(1, { i(nil, "BOJ"), i(nil, "Programmers") }),
