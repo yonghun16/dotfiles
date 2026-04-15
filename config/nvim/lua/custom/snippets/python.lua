@@ -44,7 +44,7 @@ def solution():
     pass
 
 
-// 🚀 Run Program
+# 🚀 Run Program
 if __name__ == "__main__":
     get_input_data()
     solution()
