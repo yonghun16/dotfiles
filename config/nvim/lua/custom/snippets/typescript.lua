@@ -41,7 +41,7 @@ const getInputData = () =>> {
 const solution = () =>> {};
 
 // 🚀 Run Program
-(() => {
+(() =>> {
   getInputData();
   solution();
 })();
