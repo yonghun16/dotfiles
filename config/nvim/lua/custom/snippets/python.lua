@@ -39,7 +39,7 @@ def get_input_data():
     pass
 
 
-# ⚙️Core Logic
+# ⚙️ Core Logic
 def solution():
     pass
 

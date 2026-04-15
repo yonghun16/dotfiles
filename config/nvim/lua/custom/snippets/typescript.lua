@@ -37,7 +37,7 @@ const getInputData = () =>> {
   let idx: number = 0;
 };
 
-// ⚙️Core Logic
+// ⚙️ Core Logic
 const solution = () =>> {};
 
 // 🚀 Run Program
