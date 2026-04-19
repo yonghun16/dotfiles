@@ -335,33 +335,6 @@
                                     }
                                 ],
                                 "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^com\\.mitchellh\\.ghostty$",
-                                            "^org\\.alacritty$",
-                                            "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.googlecode\\.iterm2$",
-                                            "^dev\\.warp\\.Warp-Stable$"
-                                        ],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
-                                "description": "Command + C → Tmux 현재 Pane 닫기",
-                                "from": {
-                                    "key_code": "c",
-                                    "modifiers": { "mandatory": ["command"] }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "w",
-                                        "modifiers": ["control"]
-                                    },
-                                    { "key_code": "c" }
-                                ],
-                                "type": "basic"
                             }
                         ]
                     },
