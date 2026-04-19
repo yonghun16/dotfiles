@@ -65,7 +65,7 @@ cd ~/dotfiles
   - Config
     <details>
     <summary> 🏞️ '구름 환경설정' 이미지 보기 </summary>
-      <img src="https://github.com/yonghun16/yonghun16/blob/main/images/gureum_setting.png?raw=true" width="600"/>
+      <img src="https://github.com/yonghun16/yonghun16/blob/main/images/gureum_setting.png?raw=true" width="500"/>
     </details>
     
     - 로마자로만 바꾸기 단축키 : `^C` (ESC 단축키)
