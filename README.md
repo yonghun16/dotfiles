@@ -64,7 +64,7 @@ cd ~/dotfiles
 > Gureum : https://gureum.io/
   - Config
     <details>
-    <summary> '구름 환경설정' 🏞️이미지 보기 </summary>
+    <summary> ['구름 환경설정' 이미지 보기 🏞️] </summary>
       <img src="https://github.com/yonghun16/yonghun16/blob/main/images/gureum_setting.png?raw=true" width="600"/>
     </details>
     
@@ -76,7 +76,7 @@ cd ~/dotfiles
 
   - Mac 입력 소스 설정 (한글 입력 설정)
     <details>
-    <summary> 'Mac 입력 소스 설정' 🏞️이미지 보기 </summary>
+    <summary> ['Mac 입력 소스 설정' 이미지 보기 🏞️] </summary>
       <img src="https://github.com/yonghun16/yonghun16/blob/main/images/keyboard_inputsource_setting.png?raw=true" width="600"/>
     </details>
     
