@@ -4,6 +4,7 @@
 </div>
 
 
+
 ## 1. Neovim(Nvchad)
 > Nvchad : https://nvchad.com
 
@@ -62,31 +63,38 @@ cd ~/dotfiles
 #### 🟡 Gureum
 > Gureum : https://gureum.io/
   - Config
+    <details>
+    <summary> '구름 환경설정' 🏞️이미지 보기 </summary>
+      <img src="https://github.com/yonghun16/yonghun16/blob/main/images/gureum_setting.png?raw=true" width="600"/>
+    </details>
+    
     - 로마자로만 바꾸기 단축키 : `^C` (ESC 단축키)
     - 오른쪽 키로 언어 전환 : `Command` (한/영 키 대체)
     - 한자 및 이모지 바꾸기 : `control + shift + spacebar`
-    - 한글 입력기 설정 : 모아치기, MS윈도호환, JDK호환, vi모드 
-  - Mac 입력 소스 설정
+    - 한글 입력기 설정 : 모아치기, MS윈도호환, JDK호환, vi모드
+
+
+  - Mac 입력 소스 설정 (한글 입력 설정)
+    <details>
+    <summary> 'Mac 입력 소스 설정' 🏞️이미지 보기 </summary>
+      <img src="https://github.com/yonghun16/yonghun16/blob/main/images/keyboard_inputsource_setting.png?raw=true" width="600"/>
+    </details>
+    
     - [설정] → [키보드] → [키보드 단축키] → [입력소스]
     - 이전 입력 소스 선택 : `contrl + shift + spacebar`
     - 입력 메뉴에서 다음 소스 선택 : 체크해제
-  - Detail : [gureum_setting.png](https://github.com/yonghun16/dotfiles/blob/master/gureum/gureum_setting.png), [keyboard_inputsource_setting.png](https://github.com/yonghun16/dotfiles/blob/master/gureum/keyboard_inputsource_setting.png?raw=true)
+
 
 
 ## 2. Other App Settings
-#### 🔴 Zinit
-> oh-my-zsh : https://ohmyz.sh/
-  - Neofetch
-    ```bash
-    source ~/.zshrc
-    ```
-
 #### 🔴 Ghostty
 > Ghostty : https://ghostty.org/
   - install
     ```bash
     brew install --cask ghostty
     ```
+  - setting
+    - `~/.config/ghostty/config`
 
 #### 🔴 tmux 
 > tmux : https://github.com/tmux/tmux/wiki
@@ -102,6 +110,14 @@ cd ~/dotfiles
     - ```bash
       tmux source-file ~/.tmux.conf
       ```
+
+#### 🔴 Zinit
+      > oh-my-zsh : https://ohmyz.sh/
+      - Neofetch
+      ```bash
+      source ~/.zshrc
+      ```
+
 
 
 ## 3. Neovim Plugins info
