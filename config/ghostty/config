@@ -1,0 +1,42 @@
+# [Font]
+font-family = "JetBrainsMono Nerd Font"
+font-size = 17
+
+# [Window]
+background = #00121a
+foreground = #bbd5d7
+background-opacity = 0.85
+background-blur-radius = 20
+window-padding-x = 5
+window-padding-y = 5
+
+# [Shell]
+command = /bin/zsh -l -c "tmux attach -t main || tmux new -s main"
+
+# [Interaction]
+macos-option-as-alt = true
+copy-on-select = true
+unfocused-split-opacity = 0.85
+
+# [Keyboard]
+keybind = cmd+enter=toggle_fullscreen
+keybind = ctrl+command+p=scroll_page_up
+keybind = ctrl+command+n=scroll_page_down
+
+# [Theme: Solarized Osaka]
+palette = 0=#1b232c
+palette = 1=#d1453d
+palette = 2=#75931e
+palette = 3=#c19522
+palette = 4=#2f86d7
+palette = 5=#c43c7c
+palette = 6=#2fa59f
+palette = 7=#d3d6d9
+palette = 8=#576375
+palette = 9=#f3736b
+palette = 10=#b7d92e
+palette = 11=#ebcb58
+palette = 12=#6bbaf6
+palette = 13=#f065a9
+palette = 14=#50bbad
+palette = 15=#f9f8f6

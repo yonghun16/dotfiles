@@ -74,6 +74,6 @@ link "tmux.conf" "$HOME/.tmux.conf"
 link "clang-format" "$HOME/.clang-format"
 
 ## Config 폴더 내부 연결
-link "config/alacritty" "$CONFIG/alacritty"
+link "config/ghostty" "$CONFIG/ghostty"
 link "karabiner" "$CONFIG/karabiner"
 link "config/nvim" "$CONFIG/nvim"

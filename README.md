@@ -27,67 +27,15 @@ rm -rf ~/.local/state/nvim
 ```
 
 ### 2) Basic setting
-#### 🔵 Config file install
+#### 🔵 Package install(Apps, Fonts, Etc)
 ```bash
 git clone https://github.com/yonghun16/dotfiles ~/dotfiles
 cd ~/dotfiles
 ./install.sh
 ```
 
-#### 🔵 init.lua 수정 내용
-
-<details>
-<summary>수정 내용 확인 </summary>
-
-```lua
-vim.g.base46_cache = vim.fn.stdpath "data" .. "/base46/"
-vim.g.mapleader = ","   -- 1. <leader> 키 설정
-  
--- bootstrap lazy and all plugins
-local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
-  
-if not vim.uv.fs_stat(lazypath) then
-  local repo = "https://github.com/folke/lazy.nvim.git"
-  vim.fn.system { "git", "clone", "--filter=blob:none", repo, "--branch=stable", lazypath }
-end
-  
-vim.opt.rtp:prepend(lazypath)
-  
-local lazy_config = require "configs.lazy"
-  
--- load plugins
-require("lazy").setup({
-  {
-    "NvChad/NvChad",
-    lazy = false,
-    branch = "v2.5",
-    import = "nvchad.plugins",
-  },
-  { import = "plugins" },
-  { import = "custom.plugins" },  --2. custom.plugins 경로 추가
-}, lazy_config)
-  
--- load theme
-dofile(vim.g.base46_cache .. "defaults")
-dofile(vim.g.base46_cache .. "statusline")
-  
-require "custom.options"      -- 3. custom.options 경로 수정
-require "custom.autocmds"     -- 4. custom.autocmds 경로 수정
-require "custom.lspconfig"    -- 5. custom.lspconfig 경로 수정
-  
-vim.schedule(function()
-  require "custom.mappings"   -- 6. custom.mappings 경로 수정
-end)
-```
-
-</details>
-
-
-#### 🔵 Manual plugins setting
-- package (bash)
-  ```bash
-  brew install luarocks fd fzf ripgrep tree-sitter-cli gemini-cli
-  ```
+#### 🔵 Manual plugins install
+- package (shell)
   ```bash
   pip3 install debugpy
   ```
@@ -133,15 +81,11 @@ end)
     source ~/.zshrc
     ```
 
-#### 🔴 Alacritty
-> Alacritty : https://alacritty.org/
+#### 🔴 Ghostty
+> Ghostty : https://ghostty.org/
   - install
     ```bash
-    brew install --cask alacritty
-    ```
-  - setting : Disabling macOS Font Smoothing
-    ```bash
-    defaults write org.alacritty AppleFontSmoothing -int 0
+    brew install --cask ghostty
     ```
 
 #### 🔴 tmux 

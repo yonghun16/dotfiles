@@ -29,8 +29,8 @@ brew "wget"
 brew "yarn"
 
 # Apps & Fonts (Casks)
-cask "alacritty"
 cask "docker-desktop"
 cask "font-jetbrains-mono-nerd-font"
+cask "ghostty"
 cask "gimp"
 cask "gureumkim"
