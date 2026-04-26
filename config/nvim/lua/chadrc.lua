@@ -7,10 +7,10 @@ local M = {}
 
 M.base46 = {
   theme = "solarized_osaka",
-  transparency = false,
+  transparency = true,
 
   hl_override = {
-    CursorLine = { bg = "#00212e" },
+    CursorLine = { bg = "#002534" },
     StatusLine = { bg = "#00212e" },
     Comment = { italic = true },
     ["@comment"] = { italic = true },
