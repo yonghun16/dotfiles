@@ -10,15 +10,14 @@ M.base46 = {
   transparency = true,
 
   hl_override = {
+    -- Normal = { bg = "#001a24" }, -- 주석 처리 하면 투명색 적용됨.
     CursorLine = { bg = "#002534" },
     StatusLine = { bg = "#00212e" },
     Comment = { italic = true },
     ["@comment"] = { italic = true },
     NormalFloat = { bg = "#001a24" },
-
-    -- NvimTree fixes
-    NvimTreeCursorLine = { bg = "#002330" },
-    NvimTreeCursorColumn = { bg = "#002330" },
+    NvimTreeCursorLine = { bg = "#002534" },
+    NvimTreeCursorColumn = { bg = "#002534" },
   },
 }
 
