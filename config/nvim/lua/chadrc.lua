@@ -7,7 +7,7 @@ local M = {}
 
 M.base46 = {
   theme = "solarized_osaka",
-  transparency = true,
+  -- transparency = true, -- 주석 해제 시 투명창 적용
 
   hl_override = {
     CursorLine = { bg = "#002534" },
