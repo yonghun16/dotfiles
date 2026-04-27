@@ -10,7 +10,6 @@ M.base46 = {
   transparency = true,
 
   hl_override = {
-    -- Normal = { bg = "#001a24" }, -- 주석 처리 하면 투명색 적용됨.
     CursorLine = { bg = "#002534" },
     StatusLine = { bg = "#00212e" },
     Comment = { italic = true },
