@@ -123,13 +123,14 @@ cd ~/dotfiles
 ## 3. Neovim Plugins info
 #### AI
   - windsurf.vim (AI 코드 자동완성)
-  - gemini-cli (AI 코딩 어시스턴트)
+  - Avante (AI 코딩 어시스턴트)
 
 #### Coding
   - LuaSnip (스니펫)
   - neogen (함수/클래스 주석 자동 생성)
   - nvim-cmp (코드 자동완성)
   - outline (코드 아웃라인)
+  - CodeDiff (코드 비교)
   - nvim-ts-autotag (닫는 태그 자동완성)
 
 #### Debugging

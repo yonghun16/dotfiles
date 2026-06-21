@@ -81,6 +81,79 @@ if [ -n "$TMUX" ]; then
     export IGNOREEOF=10
 fi
 
+
+# ==========================================
+# Gemini CLI 편의성 래퍼
+# ==========================================
+
+# [Internal] 프로젝트 루트 탐색 (Lua의 GetProjectRoot 역할)
+_find_gemini_root() {
+    local dir="$PWD"
+    while [ "$dir" != "/" ]; do
+        # 루트를 식별할 마커 파일들 (.git, package.json 등)
+        if [ -d "$dir/.git" ] || [ -f "$dir/go.mod" ] || [ -f "$dir/Cargo.toml" ] || [ -f "$dir/Makefile" ]; then
+            echo "$dir"
+            return
+        fi
+        dir=$(dirname "$dir")
+    done
+    echo "$PWD" # 못 찾으면 현재 디렉토리 반환
+}
+
+# 1. Toggle & Resume Latest (최근 세션 이어서 하기)
+g-resume() {
+    local root=$(_find_gemini_root)
+    cd "$root" || return
+    echo -e "\033[1;34m󰙅 Gemini Root: $root\033[0m"
+    gemini --resume latest
+}
+
+# 2. New Session (새 세션 시작)
+g-new() {
+    local root=$(_find_gemini_root)
+    cd "$root" || return
+    echo -e "\033[1;34m󰙅 Gemini Root: $root\033[0m"
+    gemini
+}
+
+# 3. Select Session (세션 목록 보고 선택하기)
+g-select() {
+    local root=$(_find_gemini_root)
+    cd "$root" || return
+    echo -e "\033[1;34m󰙅 Gemini Root: $root\033[0m"
+
+    # 공백이나 빈 줄을 제외한 모든 세션 목록을 가져옵니다.
+    local sessions=$(gemini --list-sessions 2>/dev/null | grep -v '^$')
+
+    if [ -z "$sessions" ]; then
+        echo "Gemini: 저장된 세션이 없습니다."
+        return
+    fi
+
+    if command -v fzf >/dev/null 2>&1; then
+        # fzf로 세션 라인 전체를 선택합니다.
+        local choice=$(echo "$sessions" | fzf --prompt="재개할 세션을 선택하세요: ")
+        if [ -n "$choice" ]; then
+            # 선택한 라인에서 UUID(형식: 8-4-4-4-12자리 무작위 문자열)를 추출합니다.
+            local session_id=$(echo "$choice" | grep -oE '[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}')
+            
+            # 만약 UUID 형식이 아니라면 라인의 첫 번째 단어(공백 기준)를 ID로 사용합니다.
+            if [ -z "$session_id" ]; then
+                session_id=$(echo "$choice" | awk '{print $1}')
+            fi
+            
+            gemini --resume "$session_id"
+        fi
+    else
+        # fzf가 없을 때를 위한 단순 번호 선택 인터페이스
+        echo "$sessions"
+        read -p "재개할 세션 ID 또는 번호를 입력하세요: " session_id
+        if [ -n "$session_id" ]; then
+            gemini --resume "$session_id"
+        fi
+    fi
+}
+
 # ==========================================
 # 5. 외부 도구 지연 로딩 (속도 향상의 핵심)
 # ==========================================

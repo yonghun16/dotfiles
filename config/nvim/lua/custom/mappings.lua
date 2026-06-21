@@ -43,9 +43,6 @@ map("n", "<leader>.", function()
   vim.notify("NvimTree root changed to: " .. path, vim.log.levels.INFO)
 end, { desc = "change root to current file dir" })
 
--- Diffsplit Vertical
-map("n", "<leader>dv", ":vert diffsplit ", { desc = "Diffsplit (compare files)" })
-
 -- Highlight Current Word
 map("n", "<C-_>", "*N")
 
@@ -58,7 +55,7 @@ end, { desc = "mapping overview (which-key)" })
 map("n", "<leader>rf", ReloadAndLSPRestart, { desc = "Reload File and LSP" })
 
 -- Run Code (All, Single)
-map("n", "<leader>a", Compile, { desc = "Run Code" })
+map("n", "<leader>rr", Compile, { desc = "Run Code" })
 map("n", "<leader>rs", CompileSingle, { desc = "Run Single Code" })
 
 -- Show Diagnostics message
@@ -146,37 +143,47 @@ map("t", "<C-w>k", "<C-\\><C-n><C-w>k")
 map("t", "<C-w>l", "<C-\\><C-n><C-w>l")
 
 -- ================================================================
--- Sidebars (h, j, k, l)
+-- Sidebars & Windows
 -- ================================================================
--- h : Nvimtree (left side)
+-- Nvimtree (left side)
 map("n", "<leader>h", function()
   vim.cmd "NvimTreeToggle"
 end, { desc = "toggle Explorer (NvimTree)" })
 
--- H : Nvimtree current path (left side)
+-- Nvimtree current path (left side)
 map("n", "<leader>H", function()
   api.tree.find_file { open = true, focus = true }
 end, { desc = "find current path (NvimTree)" })
 
--- j : Terminal (bottom side)
-map({ "n", "t" }, "<leader>j", function()
-  vim.cmd "ToggleTerm size=10 direction=horizontal"
-end, { desc = "Terminal (bottom)" })
-
--- k : Outline (left side)
+-- Outline (left side)
 map("n", "<leader>k", function()
   vim.cmd "Outline"
 end, { desc = "toggle Outline" })
 
--- l : Gemini (right side)
-map("n", "<leader>l", "<cmd>lua ToggleGeminiCli()<CR>", { desc = "toggle Gemini CLI" })
-map("n", "<leader>gn", "<cmd>lua NewGeminiSession()<CR>", { desc = "new Gemini CLI session" })
-map("n", "<leader>gs", "<cmd>lua SelectGeminiSession()<CR>", { desc = "select Gemini CLI session" })
+-- CodeDiff (left side)
+map("n", "<leader>K", function()
+  vim.cmd "CodeDiff"
+end, { desc = "toggle CodeDiff" })
 
--- Floating Terminal
+-- Terminal (bottom side)
+map({ "n", "t" }, "<leader>j", function()
+  vim.cmd "ToggleTerm size=10 direction=horizontal"
+end, { desc = "Terminal (bottom)" })
+
+-- Avante (right side)
+map("n", "<leader>l", function()
+  vim.cmd "AvanteToggle"
+end, { desc = "toggle Avante" })
+
+-- Terminal (floating)
 map({ "n", "t" }, "<leader><leader>", function()
   vim.cmd "ToggleTerm direction=float"
 end, { desc = "Terminal (floating)" })
+
+-- NvDash
+map("n", "<leader><ESC>", function()
+  vim.cmd "Nvdash"
+end, { desc = "toggle Nvdash" })
 
 -- ================================================================
 -- Finder (fzf-lua)

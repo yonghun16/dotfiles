@@ -72,6 +72,97 @@ local plugins = {
       }
     end,
   },
+
+  -- codediff (코드 비교)
+  {
+    "esmuellert/codediff.nvim",
+    cmd = "CodeDiff", -- 지연 로딩: :CodeDiff 명령어를 칠 때 플러그인이 로드됩니다.
+    opts = {
+      -- 1. 하이라이트 설정
+      highlights = {
+        line_insert = "DiffAdd", -- Neovim 기본 추가 배경색 사용
+        line_delete = "DiffDelete", -- Neovim 기본 삭제 배경색 사용
+        char_brightness = nil, -- 테마 배경(Dark/Light)을 자동 감지하여 글자 단위 강조 조절
+      },
+
+      -- 2. Diff 뷰어 동작 설정
+      diff = {
+        layout = "side-by-side", -- 기본 좌우 분할 매칭
+        disable_inlay_hints = true, -- 가독성을 위해 diff 창 내 인레이 힌트 차단
+        max_computation_time_ms = 5000,
+        ignore_trim_whitespace = true, -- 무의미한 들여쓰기나 끝 공백 변경점은 무시 (추천)
+        hide_merge_artifacts = false,
+        original_position = "left", -- 왼쪽: 원본(이전) 코드 / 오른쪽: 현재 코드
+        cycle_next_hunk = true, -- ]c / [c 네비게이션 시 처음과 끝 순환
+        cycle_next_file = true,
+        cycle_hunks_across_files = false,
+        jump_to_first_change = true, -- 창이 열리면 첫 번째 변경점으로 자동 스크롤
+        highlight_priority = 100,
+        compute_moves = true, -- 코드가 다른 위치로 "이사" 간 것을 감지 (추천)
+        compact_context_lines = 3,
+        compact_sync_folds = true, -- 변경 없는 구간 접기(Fold) 싱크 유지
+      },
+
+      -- 3. 파일 목록 탐색기 패널 (좌측)
+      explorer = {
+        position = "left",
+        hidden = false,
+        width = 35, -- NvChad 화면 비율을 고려해 35칸으로 슬림화
+        auto_refresh = true,
+        indent_markers = true,
+        initial_focus = "explorer", -- 처음 열렸을 때 커서를 파일 목록에 위치
+        view_mode = "tree", -- 프로젝트 구조를 보기 편하게 트리 형태로 표시
+        flatten_dirs = true, -- 중첩된 단일 폴더 계층 압축
+        focus_on_select = true, -- 파일 선택(엔터) 시 우측 코드 창으로 커서 즉시 이동 (추천)
+        auto_open_on_cursor = false,
+        status_right_margin = 1,
+        visible_groups = {
+          staged = true,
+          unstaged = true,
+          conflicts = true,
+        },
+      },
+
+      -- 4. 커밋 히스토리 패널 (하단)
+      history = {
+        position = "bottom",
+        width = 40,
+        height = 12, -- 코드 창 확보를 위해 12줄로 최적화
+        initial_focus = "history",
+        view_mode = "tree",
+      },
+
+      -- 5. Diff 뷰 내부 단축키 설정
+      keymaps = {
+        view = {
+          quit = "q", -- q 버튼으로 뷰어 종료
+          toggle_explorer = "<leader>b",
+          focus_explorer = "<leader>e",
+          next_hunk = "]c", -- 다음 변경점으로 이동
+          prev_hunk = "[c", -- 이전 변경점으로 이동
+          next_file = "]f", -- 다음 파일으로 이동
+          prev_file = "[f", -- 이전 파일으로 이동
+          diff_get = "do",
+          diff_put = "dp",
+          open_in_prev_tab = "gf",
+          close_on_open_in_prev_tab = false,
+          toggle_stage = "-", -- - 버튼으로 파일 스테이징/언스테이징 전환
+          stage_hunk = "<leader>hs",
+          unstage_hunk = "<leader>hu",
+          discard_hunk = "<leader>hr",
+          hunk_textobject = "ih",
+          show_help = "g?",
+          align_move = "gm", -- 이동된 코드 블록 일시적 정렬 매칭
+          toggle_layout = "t", -- t 버튼으로 좌우 분할 ↔ Inline 뷰 전환
+          toggle_compact = "gc", -- gc 버튼으로 변경 없는 무수히 긴 코드 숨기기
+        },
+        -- explorer, history, conflict 단축키는 공식 디폴트가 훌륭하므로 자동 적용되게 둡니다.
+      },
+    },
+    config = function(_, opts)
+      require("codediff").setup(opts)
+    end,
+  },
 }
 
 return plugins
