@@ -13,9 +13,9 @@
 ```bash
 git clone https://github.com/NvChad/starter ~/.config/nvim && nvim
 ```
-  - Run `:MasonInstallAll` command after lazy.nvim finishes downloading plugins.
-  - Delete the `.git` folder from nvim folder.
-  - Learn customization of ui & base46 from `:h nvui`.
+  - Run :MasonInstallAll and :TSInstallAll command after lazy.nvim finishes downloading plugins.
+  - Delete the .git folder from nvim folder.
+  - Learn customization of ui & base46 from :h nvui.
 
 #### 🟢 Update
   - Run `:Lazy sync`
