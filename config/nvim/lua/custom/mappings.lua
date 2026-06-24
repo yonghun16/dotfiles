@@ -55,8 +55,8 @@ end, { desc = "mapping overview (which-key)" })
 map("n", "<leader>rf", ReloadAndLSPRestart, { desc = "Reload File and LSP" })
 
 -- Run Code (All, Single)
-map("n", "<leader>rr", Compile, { desc = "Run Code" })
-map("n", "<leader>rs", CompileSingle, { desc = "Run Single Code" })
+map("n", "<leader>;", Compile, { desc = "Run Code" })
+map("n", "<leader>:", CompileSingle, { desc = "Run Single Code" })
 
 -- Show Diagnostics message
 map("n", "sd", function()
