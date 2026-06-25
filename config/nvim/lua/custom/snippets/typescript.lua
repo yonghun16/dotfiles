@@ -24,7 +24,8 @@ return {
  * ------------------------------------------------------------
  */
 
-import * as fs from "fs";
+declare var require: any;
+const fs: any = require("fs");
 
 const filePath: string = fs.existsSync("./input_test.txt")
   ? "./input_test.txt"
@@ -65,7 +66,7 @@ const solution = () =>> {};
     )
   ),
 
-  -- 일반 파일용 주석 Header (JavaScript)
+  -- 일반 파일용 주석 Header (TypeScript)
   s(
     "headerComment",
     fmt(
