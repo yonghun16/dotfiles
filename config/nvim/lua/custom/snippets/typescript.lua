@@ -29,7 +29,7 @@ const fs: any = require("fs");
 
 const filePath: string = fs.existsSync("./input_test.txt")
   ? "./input_test.txt"
-  : 0;
+  : "/dev/stdin";
 
 const input: string[] = fs.readFileSync(filePath, "utf-8").trim().split(/\s+/);
 
