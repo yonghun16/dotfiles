@@ -33,15 +33,15 @@ const filePath = fs.existsSync("./input_test.txt")
 
 const input = fs.readFileSync(filePath, "utf-8").trim().split(/\s+/);
 
-// 📥 Get Input Data
+/* 📥 Get Input Data */
 const getInputData = () =>> {
   let idx = 0;
 };
 
-// ⚙️ Core Logic
+/* ⚙️ Core Logic */
 const solution = () =>> {};
 
-// 🚀 Run Program
+/* 🚀 Run Program */
 (() =>> {
   getInputData();
   solution();
