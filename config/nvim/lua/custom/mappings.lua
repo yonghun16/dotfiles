@@ -21,6 +21,23 @@ del("n", "<leader>e") -- nvimtree focus window
 -- ================================================================
 -- Editor Mappings
 -- ================================================================
+-- Escape, Quit
+map({ "n", "i", "v", "c" }, "<C-c>", "<ESC>")
+map("t", "<ESC>", "<C-\\><C-n>")
+map("n", "<leader>q", SafeQuitAll, { desc = "Safe Quit All", noremap = true, silent = true })
+
+-- Run Code (All, Single)
+map("n", "<leader>;", Compile, { desc = "Run Code" })
+map("n", "<leader>:", CompileSingle, { desc = "Run Single Code" })
+
+-- Signature
+map("n", "gK", vim.lsp.buf.signature_help)
+
+-- Line Diagnostics
+map("n", "gl", function()
+  vim.dihgnostic.open_float { border = "rounded" }
+end, { desc = "See Diagnostics message" })
+
 -- Change root directory
 map("n", "<leader>.", function()
   local path = vim.fn.expand "%:p:h"
@@ -28,24 +45,11 @@ map("n", "<leader>.", function()
   vim.notify("NvimTree root changed to: " .. path, vim.log.levels.INFO)
 end, { desc = "change root to current file dir" })
 
--- Escape, Quit
-map({ "n", "i", "v", "c" }, "<C-c>", "<ESC>")
-map("t", "<ESC>", "<C-\\><C-n>")
-map("n", "<leader>q", SafeQuitAll, { desc = "Safe Quit All", noremap = true, silent = true })
-
 -- Highlight Current Word
 map("n", "<C-_>", "*N")
 
 -- Reload File
 map("n", "<leader>rf", ReloadAndLSPRestart, { desc = "Reload File and LSP" })
-
--- Show Diagnostics message
-map("n", "sd", function()
-  vim.diagnostic.open_float { border = "rounded" }
-end, { desc = "See Diagnostics message" })
-
--- Show Signature help
-map("n", "ss", vim.lsp.buf.signature_help)
 
 -- Toggle FoldColumn
 map("n", "<leader>tf", ToggleFoldColumn, { desc = "toggle FoldColumn" })
