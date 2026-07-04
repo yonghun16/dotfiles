@@ -178,3 +178,17 @@ map("n", "<leader>du", dapui.toggle, { desc = "Debug: Toggle UI" })
 -- ]c  다음 변경
 -- [c  이전 변경
 -- e   Explorer로 포커스 이동
+
+-- ================================================================
+-- LSP
+-- ================================================================
+-- K   Hover
+-- gK  Signature Help
+-- gd  Definition
+-- gD  Declaration
+-- gi  Implementation
+-- gr  References
+-- gt  Type Definition
+-- gl  Line Diagnostics
+-- [d  이전 Diagnostic
+-- ]d  다음 Diagnostic
