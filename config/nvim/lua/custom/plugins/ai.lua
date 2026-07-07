@@ -5,23 +5,42 @@ local plugins = {
   -- windsuf.vim (AI 코드 자동완성)
   -- :Codeium Auth (API Key 등록)
   {
-    "Exafunction/windsurf.vim", -- 혹은 "Exafunction/codeium.vim"
+    "Exafunction/windsurf.nvim",
     event = { "InsertEnter", "BufReadPost" },
 
-    init = function()
-      -- 1. 초기 상태 설정
-      vim.g.codeium_enabled = true
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
 
-      -- 2. 함수 정의를 init에 넣어 "언제나" 호출 가능하게 만듭니다.
+    config = function()
+      require("codeium").setup {
+        virtual_text = {
+          enabled = true,
+          key_bindings = {
+            accept = "<Tab>",
+            accept_word = "<C-l>",
+            next = "<C-n>",
+            prev = "<C-p>",
+          },
+        },
+      }
+
+      vim.api.nvim_set_hl(0, "CodeiumSuggestion", {
+        fg = "#6b7280",
+        italic = true,
+      })
+
+      local codeium_enabled = true
+
       _G.ToggleAIAutoComplete = function()
-        if vim.g.codeium_enabled == true then
-          vim.g.codeium_enabled = false
-          vim.cmd "CodeiumDisable"
-          print "󱚧 Codeium disabled"
-        else
-          vim.g.codeium_enabled = true
-          vim.cmd "CodeiumEnable"
+        codeium_enabled = not codeium_enabled
+
+        vim.cmd "silent Codeium Toggle"
+
+        if codeium_enabled then
           print "󰚩 Codeium enabled"
+        else
+          print "󱚧 Codeium disabled"
         end
       end
     end,
