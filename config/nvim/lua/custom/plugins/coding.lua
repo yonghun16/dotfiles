@@ -64,7 +64,7 @@ local plugins = {
       require("outline").setup {
         outline_window = {
           position = "left",
-          width = 28,
+          width = 30,
           relative_width = false,
         },
         show_numbers = false,
