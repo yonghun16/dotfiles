@@ -20,7 +20,7 @@ Link   : {}
 Level  : 
 Tag    : Python, 
 -----------------------------------------------------------
-Solution
+Approach
 {}
 -----------------------------------------------------------
 """
@@ -34,12 +34,12 @@ if os.path.exists(file_path):
     sys.stdin = open(file_path, "r", encoding="utf-8")
 
 
-# 📥 Get Input Data
+# 📥 Input
 def get_input_data():
     pass
 
 
-# ⚙️ Core Logic
+# ⚙️ Logic
 def solution():
     pass
 

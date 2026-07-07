@@ -19,7 +19,7 @@ return {
  * Level  : 
  * Tag    : TS, 
  * ------------------------------------------------------------
- * solution
+ * Approach
  * <>
  * ------------------------------------------------------------
  */
@@ -33,12 +33,12 @@ const filePath: string = fs.existsSync("./input_test.txt")
 
 const input: string[] = fs.readFileSync(filePath, "utf-8").trim().split(/\s+/);
 
-/* 📥 Get Input Data */
+/* 📥 Inpu */
 const getInputData = () =>> {
   let idx: number = 0;
 };
 
-/* ⚙️ Core Logic */
+/* ⚙️ Logic */
 const solution = () =>> {};
 
 /* 🚀 Run Program */
