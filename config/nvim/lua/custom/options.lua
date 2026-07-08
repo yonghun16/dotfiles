@@ -47,7 +47,6 @@ vim.opt.clipboard = "unnamedplus"
 vim.opt.updatetime = 200
 vim.opt.wrap = false
 
-
 -- ================================================================
 -- Functions
 -- ================================================================
@@ -127,7 +126,7 @@ function Compile()
       vim.fn.writefile(tsconfig_content, "tsconfig.json")
     end
     -- ts-node로 직접 실행
-    vim.cmd(string.format('TermExec cmd="ts-node %s"', filepath))
+    vim.cmd(string.format('TermExec cmd="tsx %s"', filepath))
     -- 만약 ~/bin에 JS 파일로 컴파일 후 실행하고 싶으면 아래 주석 해제
     -- vim.cmd(string.format(":!tsc %s --outDir %s", filepath, bin_dir))
     -- vim.cmd(string.format('TermExec cmd="node %s/%s.js"', bin_dir, filename))
