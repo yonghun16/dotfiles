@@ -6,16 +6,21 @@ local plugins = {
   -- :Codeium Auth (API Key 등록)
   {
     "Exafunction/windsurf.nvim",
-    event = { "InsertEnter", "BufReadPost" },
-
+    -- 지연 로딩 조건을 InsertEnter로 제한하여 완벽히 초기화된 후 작동하도록 유도
+    event = "InsertEnter",
     dependencies = {
       "nvim-lua/plenary.nvim",
+      "hrsh7th/nvim-cmp", -- 공식 문서에 나온 의존성 추가
     },
 
     config = function()
       require("codeium").setup {
+        enable_cmp_source = false,
+
         virtual_text = {
           enabled = true,
+          map_keys = true,
+          accept_fallback = "\t",
           key_bindings = {
             accept = "<Tab>",
             accept_word = "<C-l>",
@@ -30,11 +35,10 @@ local plugins = {
         italic = true,
       })
 
+      -- 토글 함수 설정
       local codeium_enabled = true
-
       _G.ToggleAIAutoComplete = function()
         codeium_enabled = not codeium_enabled
-
         vim.cmd "silent Codeium Toggle"
 
         if codeium_enabled then

@@ -31,7 +31,7 @@ const filePath: string = fs.existsSync("./input_test.txt")
   ? "./input_test.txt"
   : "/dev/stdin";
 
-const input: string[] = fs.readFileSync(filePath, "utf-8").trim().split(/\s+/);
+const input: string[] = fs.readFileSync(filePath, "utf-8").trim().split(/\n+/);
 
 /* 📥 Inpu */
 const getInputData = () =>> {
@@ -43,8 +43,7 @@ const solution = () =>> {};
 
 /* 🚀 Run Program */
 (() =>> {
-  getInputData();
-  solution();
+  solution(getInputData());
 })();
 ]],
       {

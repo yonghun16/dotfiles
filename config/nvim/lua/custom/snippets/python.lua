@@ -46,8 +46,7 @@ def solution():
 
 # 🚀 Run Program
 if __name__ == "__main__":
-    get_input_data()
-    solution()
+    solution(get_input_data())
 ]],
       {
         c(1, { i(nil, "BOJ"), i(nil, "Programmers") }),

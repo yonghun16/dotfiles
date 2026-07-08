@@ -31,7 +31,7 @@ const filePath = fs.existsSync("./input_test.txt")
   ? "./input_test.txt"
   : 0;
 
-const input = fs.readFileSync(filePath, "utf-8").trim().split(/\s+/);
+const input = fs.readFileSync(filePath, "utf-8").trim().split(/\n+/);
 
 /* 📥 Input */
 const getInputData = () =>> {
@@ -43,8 +43,7 @@ const solution = () =>> {};
 
 /* 🚀 Run Program */
 (() =>> {
-  getInputData();
-  solution();
+  solution(getInputData());
 })();
 ]],
       {
