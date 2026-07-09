@@ -21,6 +21,9 @@ export JAVA_HOME="/opt/homebrew/opt/openjdk@21"
 export ANDROID_HOME="$HOME/Library/Android/sdk"
 export PATH="$JAVA_HOME/bin:$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$PATH"
 
+# API Key
+export GEMINI_API_KEY=""
+
 # ==========================================
 # 2. Zinit 설치 및 초기화
 # ==========================================
