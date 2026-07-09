@@ -123,7 +123,7 @@ cd ~/dotfiles
 ## 3. Neovim Plugins info
 #### AI
   - windsurf.vim (AI 코드 자동완성)
-  - Gemini (AI 코딩 어시스턴트)
+  - Gemini CLI (AI 코딩 어시스턴트)
 
 #### Coding
   - LuaSnip (스니펫)
