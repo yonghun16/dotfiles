@@ -170,10 +170,6 @@ local plugins = {
           for cwd, buf in pairs(gemini_sessions) do
             if buf == args.buf then
               gemini_sessions[cwd] = nil
-              if gemini_win and vim.api.nvim_win_is_valid(gemini_win) then
-                pcall(vim.api.nvim_win_close, gemini_win, true)
-              end
-              gemini_win = nil
               break
             end
           end
