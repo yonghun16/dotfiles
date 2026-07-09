@@ -81,8 +81,8 @@ map("i", "<C-s>", "<Esc><C-s>")
 -- ================================================================
 -- Moving (Cursor, Screen, Block, Tab, Splits)
 -- ================================================================
--- Cursor move, jump
-map({ "n", "v" }, "<C-h>", "^")
+-- Cursor control
+map({ "n", "v" }, "<C-h>", "^") --
 map({ "n", "v" }, "<C-j>", "5j")
 map({ "n", "v" }, "<C-k>", "5k")
 map({ "n", "v" }, "<C-l>", "$")
@@ -90,38 +90,27 @@ map({ "n", "v" }, "<C-;>", "%")
 map("n", "n", "<cmd>lua SmartNextJump()<CR>", { desc = "Smart Next (Search or Illuminate)" })
 map("n", "N", "<cmd>lua SmartPrevJump()<CR>", { desc = "Smart Prev (Search or Illuminate)" })
 
--- Screen move
+-- Screen control
 map({ "n", "v" }, "<C-n>", "5<C-e>")
 map({ "n", "v" }, "<C-p>", "5<C-y>")
 map({ "n", "v" }, "<C-.>", "6zl")
 map({ "n", "v" }, "<C-,>", "6zh")
 
--- Visual Block move
+-- Visual Block control
 map("v", "<S-k>", ":m '<-2<CR>gv=gv")
 map("v", "<S-j>", ":m '>+1<CR>gv=gv")
 map("v", ">", ">gv")
 map("v", "<", "<gv")
 
--- Tab move
-map("n", "te", function() -- new tab
-  vim.cmd "tabedit"
-end)
-map("n", "tt", function() -- new tab to terminal
-  vim.cmd "tabedit"
-  vim.cmd "terminal"
-  vim.api.nvim_feedkeys("i", "n", false)
-end)
-map("n", "tx", function() -- tab close
-  vim.cmd "tabclose"
-end)
-map("n", "tn", function() -- tab next
-  vim.cmd "tabnext"
-end)
-map("n", "tp", function() -- tab previous
-  vim.cmd "tabprevious"
-end)
+-- Tab control
+map("n", "<leader>tn", "<cmd>tabnew<CR>", { desc = "New Tab" })
+map("n", "<leader>tc", "<cmd>tabclose<CR>", { desc = "Close Tab" })
+map("n", "<leader>to", "<cmd>tabonly<CR>", { desc = "Only Tab" })
+map("n", "<leader>tl", "<cmd>tabnext<CR>", { desc = "Next Tab" })
+map("n", "<leader>th", "<cmd>tabprevious<CR>", { desc = "Previous Tab" })
+map("n", "<leader>tm", "<cmd>tabmove<CR>", { desc = "Move Tab" })
 
--- Splits move
+-- Splits control
 map("t", "<C-w>h", "<C-\\><C-n><C-w>h")
 map("t", "<C-w>j", "<C-\\><C-n><C-w>j")
 map("t", "<C-w>k", "<C-\\><C-n><C-w>k")
