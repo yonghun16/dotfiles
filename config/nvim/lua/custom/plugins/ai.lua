@@ -50,74 +50,136 @@ local plugins = {
     end,
   },
 
-  -- avante.nvim
+  -- Gemini CLI
   {
-    "yetone/avante.nvim",
-    event = "VeryLazy",
-    lazy = false,
-    version = false,
-    build = "make",
+    "gemini-cli-custom", -- 임의의 식별자
+    dir = vim.fn.stdpath "config", -- 실제 다운로드 대신 현재 설정 폴더 사용
+    lazy = false, -- 시작 시 즉시 함수 등록
+    init = function()
+      local gemini_sessions = {}
+      local gemini_win = nil
 
-    dependencies = {
-      "stevearc/dressing.nvim",
-      "nvim-lua/plenary.nvim",
-      "MunifTanjim/nui.nvim",
-      "nvim-tree/nvim-web-devicons",
+      -------------------------------------------------------------------------
+      -- Project Root
+      -------------------------------------------------------------------------
 
-      {
-        "MeanderingProgrammer/render-markdown.nvim",
-        opts = {
-          file_types = { "markdown", "Avante" },
-        },
-        ft = { "markdown", "Avante" },
-      },
-    },
+      local function GetProjectRoot()
+        local markers = {
+          ".git",
+          "package.json",
+          "go.mod",
+          "Cargo.toml",
+          "Makefile",
+        }
 
-    opts = {
-      provider = "gemini",
-      mode = "agentic",
+        local root = vim.fs.root(0, markers)
+        if root then
+          vim.api.nvim_echo({
+            { "󰙅 Gemini Root: ", "Identifier" },
+            { root, "String" },
+          }, true, {})
+          return root
+        end
 
-      providers = {
-        gemini = {
-          model = "gemini-3.5-flash",
-          temperature = 0,
-          max_tokens = 8192,
-        },
-      },
+        root = vim.fn.getcwd()
+        vim.api.nvim_echo({
+          { "󰙅 Gemini Root: ", "Identifier" },
+          { root, "String" },
+          { " (cwd)", "Comment" },
+        }, true, {})
+        return root
+      end
 
-      behaviour = {
-        auto_suggestions = false,
+      -------------------------------------------------------------------------
+      -- Window
+      -------------------------------------------------------------------------
+      local function OpenGeminiWin(buf)
+        -- 이미 열려있으면 숨기기
+        if gemini_win and vim.api.nvim_win_is_valid(gemini_win) then
+          vim.api.nvim_win_hide(gemini_win)
+          gemini_win = nil
+          return false
+        end
 
-        -- 클립보드 붙여넣기 지원
-        support_paste_from_clipboard = true,
+        if not vim.api.nvim_buf_is_valid(buf) then
+          return false
+        end
 
-        -- 자동 적용 X
-        -- diff 확인 후 직접 적용
-        auto_apply_diff_after_generation = false,
+        vim.cmd "botright vsplit"
+        gemini_win = vim.api.nvim_get_current_win()
+        vim.api.nvim_win_set_buf(gemini_win, buf)
+        vim.api.nvim_win_set_width(gemini_win, 60)
+        vim.wo[gemini_win].winfixwidth = true
+        return true
+      end
 
-        -- agent가 파일 수정 workflow 사용
-        enable_fastapply = true,
-      },
+      -------------------------------------------------------------------------
+      -- Toggle Gemini (Resume Latest)
+      -------------------------------------------------------------------------
+      _G.ToggleGeminiCli = function()
+        local cwd = GetProjectRoot()
+        local buf = gemini_sessions[cwd]
 
-      mappings = {
-        sidebar = {
-          toggle = "<leader>aa",
-        },
+        if not buf or not vim.api.nvim_buf_is_valid(buf) then
+          buf = vim.api.nvim_create_buf(false, true)
+          gemini_sessions[cwd] = buf
 
-        diff = {
-          ours = "co", -- diff 적용
-          theirs = "ct", -- AI 변경 유지
-          all_theirs = "ca", -- 전체 적용
-          close = "q", -- 종료
-        },
-      },
+          if OpenGeminiWin(buf) then
+            vim.cmd("lcd " .. vim.fn.fnameescape(cwd))
+            vim.fn.termopen "gemini --resume latest"
+            vim.cmd "startinsert"
+          end
+          return
+        end
 
-      windows = {
-        sidebar = {
-          width = 35,
-        },
-      },
-    },
+        if OpenGeminiWin(buf) then
+          vim.cmd "startinsert"
+        end
+      end
+
+      -------------------------------------------------------------------------
+      -- New Gemini Session
+      -------------------------------------------------------------------------
+      _G.NewGeminiSession = function()
+        local cwd = GetProjectRoot()
+
+        if gemini_win and vim.api.nvim_win_is_valid(gemini_win) then
+          pcall(vim.api.nvim_win_close, gemini_win, true)
+          gemini_win = nil
+        end
+
+        if gemini_sessions[cwd] and vim.api.nvim_buf_is_valid(gemini_sessions[cwd]) then
+          pcall(vim.api.nvim_buf_delete, gemini_sessions[cwd], { force = true })
+        end
+
+        local buf = vim.api.nvim_create_buf(false, true)
+        gemini_sessions[cwd] = buf
+
+        if OpenGeminiWin(buf) then
+          vim.cmd("lcd " .. vim.fn.fnameescape(cwd))
+          vim.fn.termopen "gemini"
+          vim.cmd "startinsert"
+        end
+      end
+
+      -------------------------------------------------------------------------
+      -- Cleanup
+      -------------------------------------------------------------------------
+      vim.api.nvim_create_autocmd("TermClose", {
+        callback = function(args)
+          for cwd, buf in pairs(gemini_sessions) do
+            if buf == args.buf then
+              gemini_sessions[cwd] = nil
+              if gemini_win and vim.api.nvim_win_is_valid(gemini_win) then
+                pcall(vim.api.nvim_win_close, gemini_win, true)
+              end
+              gemini_win = nil
+              break
+            end
+          end
+        end,
+      })
+    end,
   },
 }
 

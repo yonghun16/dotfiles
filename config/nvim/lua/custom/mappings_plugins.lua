@@ -36,10 +36,9 @@ map({ "n", "t" }, "<leader>j", function()
   vim.cmd "ToggleTerm size=10 direction=horizontal"
 end, { desc = "Terminal (bottom)" })
 
--- Avante (right side)
-map("n", "<leader>l", function()
-  vim.cmd "AvanteToggle"
-end, { desc = "toggle Avante" })
+-- Gemini CLI (right side)
+map("n", "<leader>l", "<cmd>lua ToggleGeminiCli()<CR>", { desc = "toggle Gemini CLI" })
+map("n", "<leader>L", "<cmd>lua NewGeminiSession()<CR>", { desc = "new Gemini CLI session" })
 
 -- Terminal (floating)
 map({ "n", "t" }, "<leader><leader>", function()
