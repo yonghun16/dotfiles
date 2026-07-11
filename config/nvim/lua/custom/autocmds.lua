@@ -1,20 +1,34 @@
 require "nvchad.autocmds"
 
 local autocmd = vim.api.nvim_create_autocmd
-local o = vim.o
 
 -- CursorLine: 포커스 창에서만 활성화
 autocmd({ "WinEnter", "BufEnter" }, {
   callback = function()
-    o.cursorlineopt = "both"
-    o.cursorline = true
+    vim.o.cursorlineopt = "both"
+    vim.o.cursorline = true
+    vim.wo.relativenumber = true
   end,
 })
 
 autocmd({ "WinLeave", "BufLeave" }, {
   callback = function()
-    o.cursorlineopt = "both"
-    o.cursorline = false
+    vim.o.cursorlineopt = "both"
+    vim.o.cursorline = false
+    vim.wo.relativenumber = false
+  end,
+})
+
+-- relativenumber : Neovim이 비활성화되면 상대번호 끄기
+autocmd("FocusLost", {
+  callback = function()
+    vim.wo.relativenumber = false
+  end,
+})
+
+autocmd("FocusGained", {
+  callback = function()
+    vim.wo.relativenumber = true
   end,
 })
 

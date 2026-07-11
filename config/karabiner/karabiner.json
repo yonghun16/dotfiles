@@ -62,66 +62,6 @@
                                         "type": "frontmost_application_if"
                                     }
                                 ],
-                                "description": "Control + Command + k -> 9줄 위로 이동(9k)",
-                                "from": {
-                                    "key_code": "k",
-                                    "modifiers": { "mandatory": ["control", "command"] }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "9",
-                                        "repeat": false
-                                    },
-                                    {
-                                        "key_code": "k",
-                                        "repeat": false
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^com\\.mitchellh\\.ghostty$",
-                                            "^org\\.alacritty$",
-                                            "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.googlecode\\.iterm2$",
-                                            "^dev\\.warp\\.Warp-Stable$"
-                                        ],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
-                                "description": "Control + Command + J → 9줄 아래 이동(9j)",
-                                "from": {
-                                    "key_code": "j",
-                                    "modifiers": { "mandatory": ["control", "command"] }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "9",
-                                        "repeat": false
-                                    },
-                                    {
-                                        "key_code": "j",
-                                        "repeat": false
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^com\\.mitchellh\\.ghostty$",
-                                            "^org\\.alacritty$",
-                                            "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.googlecode\\.iterm2$",
-                                            "^dev\\.warp\\.Warp-Stable$"
-                                        ],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
                                 "description": "Control + / → Vim 검색어 강조용 (* 누르고 Shift+n)",
                                 "from": {
                                     "key_code": "slash",
