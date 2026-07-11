@@ -23,7 +23,7 @@ local plugins = {
           accept_fallback = "\t",
           key_bindings = {
             accept = "<Tab>",
-            accept_word = "<C-l>",
+            accept_word = "<C-f>",
             next = "<C-n>",
             prev = "<C-p>",
           },
