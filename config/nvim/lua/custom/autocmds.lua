@@ -7,7 +7,13 @@ autocmd({ "WinEnter", "BufEnter" }, {
   callback = function()
     vim.o.cursorlineopt = "both"
     vim.o.cursorline = true
-    vim.wo.relativenumber = true
+
+    -- 터미널에서는 상대번호를 켜지 않음
+    if vim.bo.buftype ~= "terminal" then
+      vim.wo.relativenumber = true
+    else
+      vim.wo.relativenumber = false
+    end
   end,
 })
 
