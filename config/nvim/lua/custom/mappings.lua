@@ -82,11 +82,11 @@ map("i", "<C-s>", "<Esc><C-s>")
 -- Moving (Cursor, Screen, Block, Tab, Splits)
 -- ================================================================
 -- Cursor control
-map({ "n", "v" }, "<C-h>", "^") --
-map({ "n", "v" }, "<C-j>", "5j")
-map({ "n", "v" }, "<C-k>", "5k")
-map({ "n", "v" }, "<C-l>", "$")
-map({ "n", "v" }, "<C-;>", "%")
+map({ "n", "v" }, "<C-j>", "3j")
+map({ "n", "v" }, "<C-k>", "3k")
+map({ "n", "v" }, "<C-h>", "B")
+map({ "n", "v" }, "<C-l>", "W")
+map({ "n", "v" }, "<C-SPACE>", "%")
 map("n", "n", "<cmd>lua SmartNextJump()<CR>", { desc = "Smart Next (Search or Illuminate)" })
 map("n", "N", "<cmd>lua SmartPrevJump()<CR>", { desc = "Smart Prev (Search or Illuminate)" })
 
