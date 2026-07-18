@@ -1,6 +1,6 @@
 # dotfiles
 <div align="center">
-  <img src="https://raw.githubusercontent.com/yonghun16/yonghun16/refs/heads/main/images/nvim_preview.png" width=800px />
+  <img src="https://raw.githubusercontent.com/yonghun16/yonghun16/refs/heads/main/images/nvim_preview.jpg" width=800px />
 </div>
 
 
