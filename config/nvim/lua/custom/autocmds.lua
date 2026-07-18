@@ -72,3 +72,12 @@ autocmd("BufWritePost", {
     end
   end,
 })
+
+-- CodeCompanion: 상대번호 끄기
+autocmd("FileType", {
+  pattern = "codecompanion",
+  callback = function()
+    vim.opt_local.number = false
+    vim.opt_local.relativenumber = false
+  end,
+})

@@ -50,6 +50,80 @@ local plugins = {
     end,
   },
 
+  -- CodeCompanion
+  {
+    "olimorris/codecompanion.nvim",
+
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "ravitemer/codecompanion-history.nvim",
+    },
+
+    event = "VeryLazy",
+
+    opts = {
+
+      display = {
+        chat = {
+          window = {
+            layout = "vertical",
+            relative_width = false,
+            width = 60,
+          },
+        },
+      },
+
+      strategies = {
+        chat = {
+          adapter = "ollama",
+
+          keymaps = {
+            close = false, -- Ctrl-C 종료 비활성화
+
+            stop = {
+              modes = {
+                n = "<C-x>",
+                i = "<C-x>",
+              },
+            },
+          },
+        },
+
+        inline = {
+          adapter = "ollama",
+        },
+      },
+
+      adapters = {
+        ollama = function()
+          return require("codecompanion.adapters").extend("ollama", {
+            schema = {
+              model = {
+                default = "qwen2.5-coder:14b",
+              },
+
+              endpoint = {
+                default = "http://localhost:11434/api/chat",
+              },
+            },
+          })
+        end,
+      },
+
+      extensions = {
+        history = {
+          enabled = true,
+
+          opts = {
+            auto_save = true,
+            path = vim.fn.stdpath "data" .. "/codecompanion/history",
+          },
+        },
+      },
+    },
+  },
+
   -- Gemini CLI
   {
     "gemini-cli-custom", -- 임의의 식별자

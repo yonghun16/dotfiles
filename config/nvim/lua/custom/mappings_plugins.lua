@@ -36,9 +36,10 @@ map({ "n", "t" }, "<leader>j", function()
   vim.cmd "ToggleTerm size=10 direction=horizontal"
 end, { desc = "Terminal (bottom)" })
 
--- Gemini CLI (right side)
-map("n", "<leader>l", "<cmd>lua ToggleGeminiCli()<CR>", { desc = "toggle Gemini CLI" })
-map("n", "<leader>L", "<cmd>lua NewGeminiSession()<CR>", { desc = "new Gemini CLI session" })
+-- AI Chat (right side)
+map("n", "<leader>l", "<cmd>CodeCompanionChat Toggle<CR>", { desc = "toggle CodeCompanionChat" })
+map("v", "<leader>l", "<cmd>CodeCompanion<CR>", { desc = "CodeCompanion Inline" })
+map("n", "<leader>L", "<cmd>lua ToggleGeminiCli()<CR>", { desc = "toggle Gemini CLI" })
 
 -- Terminal (floating)
 map({ "n", "t" }, "<leader><leader>", function()
@@ -191,3 +192,16 @@ map("n", "<leader>du", dapui.toggle, { desc = "Debug: Toggle UI" })
 -- gl  Line Diagnostics
 -- [d  이전 Diagnostic
 -- ]d  다음 Diagnostic
+
+-- ================================================================
+-- Neogen
+-- ================================================================
+-- :Neogen func   함수(Function)용 주석 생성
+-- :Neogen class  클래스(Class)용 주석 생성
+-- :Neogen type   타입(Type)용 주석 생성
+-- :Neogen file   파일(File)용 주석 생성
+
+-- ================================================================
+-- CodeCompanion
+-- ================================================================
+-- gh  CodeCompanionHistory
