@@ -120,7 +120,7 @@ cd ~/dotfiles
 
 
 
-## 3. Neovim Plugins info
+## 3. Neovim Custom Plugins info
 #### AI
   - windsurf.nvim (AI 코드 자동완성)
   - CodeCompanion.nvim (AI 코딩 어시스턴트)
