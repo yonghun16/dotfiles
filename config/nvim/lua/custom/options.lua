@@ -39,7 +39,8 @@ vim.opt.sidescrolloff = 3
 
 -- folding
 vim.opt.foldenable = true
-vim.opt.foldmethod = "indent"
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldlevel = 99
 
 -- etc
@@ -179,29 +180,10 @@ function ReloadAndLSPRestart()
 end
 
 -- Toggle Foldcolumn
-local MIN_FOLDCOL = 0
-local MAX_FOLDCOL = 6
-local foldcolumn_visible = false
-
-local function get_max_fold_level()
-  local max_level = 0
-  for lnum = 1, vim.fn.line "$" do
-    local level = vim.fn.foldlevel(lnum)
-    if level > max_level then
-      max_level = level
-    end
-  end
-  return math.min(max_level, MAX_FOLDCOL)
-end
-
 function ToggleFoldColumn()
-  if not foldcolumn_visible then
-    vim.wo.foldcolumn = tostring(math.max(get_max_fold_level(), 1))
-    vim.wo.relativenumber = false
-    foldcolumn_visible = true
+  if vim.wo.foldcolumn == "0" then
+    vim.wo.foldcolumn = "auto:6"
   else
-    vim.wo.foldcolumn = tostring(MIN_FOLDCOL)
-    vim.wo.relativenumber = true
-    foldcolumn_visible = false
+    vim.wo.foldcolumn = "0"
   end
 end

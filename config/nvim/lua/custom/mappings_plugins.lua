@@ -23,6 +23,7 @@ end, { desc = "find current path (NvimTree)" })
 
 -- Outline (left side)
 map("n", "<leader>k", function()
+  vim.cmd "NvimTreeClose"
   vim.cmd "Outline"
 end, { desc = "toggle Outline" })
 
