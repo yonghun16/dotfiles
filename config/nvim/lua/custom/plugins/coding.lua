@@ -2,7 +2,7 @@ local plugins = {
   -- ================================================================
   -- Coding
   -- ================================================================
-  -- LuaSnip (스니펫)
+  -- LuaSnip (코드 스니펫)
   {
     "L3MON4D3/LuaSnip",
     build = "make install_jsregexp",
@@ -16,7 +16,7 @@ local plugins = {
     end,
   },
 
-  -- neogen (함수/클래스 주석 자동 생성)
+  -- neogen (문서 주석 자동 생성)
   {
     "danymat/neogen",
     config = true,

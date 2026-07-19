@@ -17,6 +17,7 @@ M.base46 = {
     NormalFloat = { bg = "#001a24" },
     NvimTreeCursorLine = { bg = "#002534" },
     NvimTreeCursorColumn = { bg = "#002534" },
+    TelescopeSelection = { bg = "#002534" },
   },
 }
 

@@ -7,6 +7,7 @@ local map = vim.keymap.set
 local api = require "nvim-tree.api"
 local dap = require "dap"
 local dapui = require "dapui"
+local gemini = require "custom.gemini"
 
 -- ================================================================
 -- Sidebars & Editors
@@ -41,8 +42,10 @@ end, { desc = "Terminal (bottom)" })
 
 -- AI Chat (right side)
 map("n", "<leader>l", "<cmd>CodeCompanionChat Toggle<CR>", { desc = "toggle CodeCompanionChat" })
-map("v", "<leader>l", "<cmd>CodeCompanion<CR>", { desc = "CodeCompanion Inline" })
-map("n", "<leader>L", "<cmd>lua ToggleGeminiCli()<CR>", { desc = "toggle Gemini CLI" })
+map("v", "<leader>l", "<cmd>CodeCompanionChat Add<CR>", { desc = "CodeCompanion Inline" })
+map("n", "<leader>L", function()
+  gemini.toggle()
+end, { desc = "toggle Gemini CLI" })
 
 -- Terminal (floating)
 map({ "n", "t" }, "<leader><leader>", function()
@@ -207,4 +210,7 @@ map("n", "<leader>du", dapui.toggle, { desc = "Debug: Toggle UI" })
 -- ================================================================
 -- CodeCompanion
 -- ================================================================
--- gh  CodeCompanionHistory
+-- gh     CodeCompanionHistory
+-- gn     new CodeCompanion Chat
+-- <C-q>  CodeCompanion Chat Close
+-- gd     CodeCompanion Debug
