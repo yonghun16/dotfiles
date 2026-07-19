@@ -123,7 +123,7 @@ cd ~/dotfiles
 ## 3. Neovim Custom Plugins info
 #### AI
   - windsurf.nvim (AI 코드 자동완성)
-  - Gemini CLI (AI 코딩 어시스턴트)
+  - Gemini CLI (AI 코딩 어시스턴트 with olliama)
   - CodeCompanion.nvim (AI 코딩 어시스턴트)
 
 #### Coding
