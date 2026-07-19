@@ -19,6 +19,7 @@ end, { desc = "toggle Explorer (NvimTree)" })
 
 -- Nvimtree current path (left side)
 map("n", "<leader>H", function()
+  vim.cmd "OutlineClose"
   api.tree.find_file { open = true, focus = true }
 end, { desc = "find current path (NvimTree)" })
 
