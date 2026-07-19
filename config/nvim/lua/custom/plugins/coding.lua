@@ -59,7 +59,11 @@ local plugins = {
   -- outline (코드 아웃라인 보기)
   {
     "hedyhli/outline.nvim",
-    cmd = "Outline",
+    cmd = {
+      "Outline",
+      "OutlineOpen",
+      "OutlineClose",
+    },
     config = function()
       require("outline").setup {
         outline_window = {

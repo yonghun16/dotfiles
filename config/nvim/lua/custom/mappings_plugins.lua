@@ -13,6 +13,7 @@ local dapui = require "dapui"
 -- ================================================================
 -- Nvimtree (left side)
 map("n", "<leader>h", function()
+  vim.cmd "OutlineClose"
   vim.cmd "NvimTreeToggle"
 end, { desc = "toggle Explorer (NvimTree)" })
 
