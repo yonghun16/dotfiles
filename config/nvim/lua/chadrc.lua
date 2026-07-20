@@ -7,17 +7,17 @@ local M = {}
 
 M.base46 = {
   theme = "solarized_osaka",
-  -- transparency = true, -- 주석 해제 시 투명창 적용
+  transparency = true, -- 주석 해제 시 투명창 적용
 
   hl_override = {
-    CursorLine = { bg = "#002534" },
-    StatusLine = { bg = "#00212e" },
+    CursorLine = { bg = "#103840" },
+    StatusLine = { bg = "#102F36" },
     Comment = { italic = true },
     ["@comment"] = { italic = true },
-    NormalFloat = { bg = "#001a24" },
-    NvimTreeCursorLine = { bg = "#002534" },
-    NvimTreeCursorColumn = { bg = "#002534" },
-    TelescopeSelection = { bg = "#002534" },
+    NormalFloat = { bg = "#00212e" },
+    NvimTreeCursorLine = { bg = "#103840" },
+    NvimTreeCursorColumn = { bg = "#103840" },
+    TelescopeSelection = { bg = "#103840" },
   },
 }
 
