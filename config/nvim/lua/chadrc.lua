@@ -10,13 +10,13 @@ M.base46 = {
   transparency = true, -- 주석 해제 시 투명창 적용
 
   hl_override = {
-    CursorLine = { bg = "#103840" },
+    CursorLine = { bg = "#033247" },
     Comment = { italic = true },
     ["@comment"] = { italic = true },
     NormalFloat = { bg = "#00212e" },
-    NvimTreeCursorLine = { bg = "#103840" },
-    NvimTreeCursorColumn = { bg = "#103840" },
-    TelescopeSelection = { bg = "#103840" },
+    NvimTreeCursorLine = { bg = "#033247" },
+    NvimTreeCursorColumn = { bg = "#033247" },
+    TelescopeSelection = { bg = "#033247" },
   },
 }
 
