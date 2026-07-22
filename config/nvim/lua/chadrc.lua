@@ -11,7 +11,6 @@ M.base46 = {
 
   hl_override = {
     CursorLine = { bg = "#103840" },
-    StatusLine = { bg = "#102F36" },
     Comment = { italic = true },
     ["@comment"] = { italic = true },
     NormalFloat = { bg = "#00212e" },
