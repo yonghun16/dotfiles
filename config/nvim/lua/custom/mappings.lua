@@ -84,11 +84,13 @@ map("i", "<C-s>", "<Esc><C-s>")
 -- Cursor control
 map({ "n", "v" }, "<C-j>", "3j")
 map({ "n", "v" }, "<C-k>", "3k")
-map({ "n", "v" }, "<C-h>", "B")
-map({ "n", "v" }, "<C-l>", "E")
-map({ "n", "v" }, "<C-SPACE>", "%")
+map({ "n", "v" }, "<C-h>", "{")
+map({ "n", "v" }, "<C-l>", "}")
 map("n", "n", "<cmd>lua SmartNextJump()<CR>", { desc = "Smart Next (Search or Illuminate)" })
 map("n", "N", "<cmd>lua SmartPrevJump()<CR>", { desc = "Smart Prev (Search or Illuminate)" })
+map({ "n", "v" }, "mm", function()
+  vim.cmd.normal { "%" }
+end, { desc = "Jump to matching pair" })
 
 -- Screen control
 map({ "n", "v" }, "<C-n>", "5<C-e>")

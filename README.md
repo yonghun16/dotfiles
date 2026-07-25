@@ -144,6 +144,7 @@ cd ~/dotfiles
   - nvim-lastplace (커서 마지막 위치 저장)
   - vim-illuminate (단어 하이라이팅)
   - vim-visual-multi (멀티 커서)
+  - vim-matchup (코드 블록 매칭 및 이동)
 
 #### LSP & Formatting & Linting & Treesitter
   - mason.nvim (LSP Server Management)
