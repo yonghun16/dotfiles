@@ -101,6 +101,14 @@
                                 },
                                 "to": [
                                     {
+                                        "key_code": "backslash",
+                                        "modifiers": ["control"]
+                                    },
+                                    {
+                                        "key_code": "n",
+                                        "modifiers": ["control"]
+                                    },
+                                    {
                                         "key_code": "w",
                                         "modifiers": ["control"]
                                     },
@@ -127,6 +135,14 @@
                                     "modifiers": { "mandatory": ["command"] }
                                 },
                                 "to": [
+                                    {
+                                        "key_code": "backslash",
+                                        "modifiers": ["control"]
+                                    },
+                                    {
+                                        "key_code": "n",
+                                        "modifiers": ["control"]
+                                    },
                                     {
                                         "key_code": "w",
                                         "modifiers": ["control"]
@@ -155,6 +171,14 @@
                                 },
                                 "to": [
                                     {
+                                        "key_code": "backslash",
+                                        "modifiers": ["control"]
+                                    },
+                                    {
+                                        "key_code": "n",
+                                        "modifiers": ["control"]
+                                    },
+                                    {
                                         "key_code": "w",
                                         "modifiers": ["control"]
                                     },
@@ -182,6 +206,14 @@
                                 },
                                 "to": [
                                     {
+                                        "key_code": "backslash",
+                                        "modifiers": ["control"]
+                                    },
+                                    {
+                                        "key_code": "n",
+                                        "modifiers": ["control"]
+                                    },
+                                    {
                                         "key_code": "w",
                                         "modifiers": ["control"]
                                     },
@@ -208,6 +240,14 @@
                                     "modifiers": { "mandatory": ["command"] }
                                 },
                                 "to": [
+                                    {
+                                        "key_code": "backslash",
+                                        "modifiers": ["control"]
+                                    },
+                                    {
+                                        "key_code": "n",
+                                        "modifiers": ["control"]
+                                    },
                                     {
                                         "key_code": "w",
                                         "modifiers": ["control"]
@@ -244,6 +284,14 @@
                                 },
                                 "to": [
                                     {
+                                        "key_code": "backslash",
+                                        "modifiers": ["control"]
+                                    },
+                                    {
+                                        "key_code": "n",
+                                        "modifiers": ["control"]
+                                    },
+                                    {
                                         "key_code": "w",
                                         "modifiers": ["control"]
                                     },
@@ -277,6 +325,14 @@
                                     "modifiers": { "mandatory": ["command"] }
                                 },
                                 "to": [
+                                    {
+                                        "key_code": "backslash",
+                                        "modifiers": ["control"]
+                                    },
+                                    {
+                                        "key_code": "n",
+                                        "modifiers": ["control"]
+                                    },
                                     {
                                         "key_code": "w",
                                         "modifiers": ["control"]
@@ -316,6 +372,14 @@
                                     "modifiers": { "mandatory": ["command"] }
                                 },
                                 "to": [
+                                    {
+                                        "key_code": "backslash",
+                                        "modifiers": ["control"]
+                                    },
+                                    {
+                                        "key_code": "n",
+                                        "modifiers": ["control"]
+                                    },
                                     {
                                         "key_code": "w",
                                         "modifiers": ["control"]
