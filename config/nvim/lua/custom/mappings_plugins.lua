@@ -7,7 +7,8 @@ local map = vim.keymap.set
 local api = require "nvim-tree.api"
 local dap = require "dap"
 local dapui = require "dapui"
-local gemini = require "custom.gemini"
+local gemini = require "custom.ai.gemini"
+local aider = require "custom.ai.aider"
 
 -- ================================================================
 -- Sidebars & Editors
@@ -41,11 +42,12 @@ map({ "n", "t" }, "<leader>j", function()
 end, { desc = "Terminal (bottom)" })
 
 -- AI Chat (right side)
-map("n", "<leader>l", "<cmd>CodeCompanionChat Toggle<CR>", { desc = "toggle CodeCompanionChat" })
-map("v", "<leader>l", "<cmd>CodeCompanionChat Add<CR>", { desc = "CodeCompanion Inline" })
-map("n", "<leader>L", function()
+map("n", "<leader>lg", function()
   gemini.toggle()
 end, { desc = "toggle Gemini CLI" })
+map("n", "<leader>la", function()
+  aider.toggle()
+end, { desc = "toggle Aider" })
 
 -- Terminal (floating)
 map({ "n", "t" }, "<leader><leader>", function()
