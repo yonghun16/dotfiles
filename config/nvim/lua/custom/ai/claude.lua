@@ -1,7 +1,7 @@
 local M = {}
 
-local aider_sessions = {}
-local aider_win = nil
+local claude_sessions = {}
+local claude_win = nil
 
 -----------------------------------------------------------
 -- Project Root
@@ -20,7 +20,7 @@ local function GetProjectRoot()
 
   if root then
     vim.api.nvim_echo({
-      { "󰙅 Aider Root: ", "Identifier" },
+      { "󰙅 Claude Root: ", "Identifier" },
       { root, "String" },
     }, true, {})
 
@@ -30,7 +30,7 @@ local function GetProjectRoot()
   root = vim.fn.getcwd()
 
   vim.api.nvim_echo({
-    { "󰙅 Aider Root: ", "Identifier" },
+    { "󰙅 Claude Root: ", "Identifier" },
     { root, "String" },
     { " (cwd)", "Comment" },
   }, true, {})
@@ -42,10 +42,10 @@ end
 -- Window
 -----------------------------------------------------------
 
-local function OpenAiderWin(buf)
-  if aider_win and vim.api.nvim_win_is_valid(aider_win) then
-    vim.api.nvim_win_hide(aider_win)
-    aider_win = nil
+local function OpenClaudeWin(buf)
+  if claude_win and vim.api.nvim_win_is_valid(claude_win) then
+    vim.api.nvim_win_hide(claude_win)
+    claude_win = nil
     return false
   end
 
@@ -55,37 +55,36 @@ local function OpenAiderWin(buf)
 
   vim.cmd "botright vsplit"
 
-  aider_win = vim.api.nvim_get_current_win()
+  claude_win = vim.api.nvim_get_current_win()
 
-  vim.api.nvim_win_set_buf(aider_win, buf)
-  vim.api.nvim_win_set_width(aider_win, 60)
+  vim.api.nvim_win_set_buf(claude_win, buf)
+  vim.api.nvim_win_set_width(claude_win, 60)
 
-  vim.wo[aider_win].winfixwidth = true
+  vim.wo[claude_win].winfixwidth = true
 
   return true
 end
 
 -----------------------------------------------------------
--- Toggle Aider
+-- Toggle Claude
 -----------------------------------------------------------
 
 function M.toggle()
   local cwd = GetProjectRoot()
 
-  local buf = aider_sessions[cwd]
+  local buf = claude_sessions[cwd]
 
   if not buf or not vim.api.nvim_buf_is_valid(buf) then
     buf = vim.api.nvim_create_buf(false, true)
 
-    aider_sessions[cwd] = buf
+    claude_sessions[cwd] = buf
 
-    if OpenAiderWin(buf) then
+    if OpenClaudeWin(buf) then
       vim.cmd("lcd " .. vim.fn.fnameescape(cwd))
 
       vim.fn.termopen {
-        "aider",
-        "--model",
-        "ollama/qwen3-coder:30b",
+        "claude",
+        "--continue",
       }
 
       vim.cmd "startinsert"
@@ -94,7 +93,40 @@ function M.toggle()
     return
   end
 
-  if OpenAiderWin(buf) then
+  if OpenClaudeWin(buf) then
+    vim.cmd "startinsert"
+  end
+end
+
+-----------------------------------------------------------
+-- New Session
+-----------------------------------------------------------
+
+function M.new()
+  local cwd = GetProjectRoot()
+
+  if claude_win and vim.api.nvim_win_is_valid(claude_win) then
+    pcall(vim.api.nvim_win_close, claude_win, true)
+    claude_win = nil
+  end
+
+  if claude_sessions[cwd] and vim.api.nvim_buf_is_valid(claude_sessions[cwd]) then
+    pcall(vim.api.nvim_buf_delete, claude_sessions[cwd], {
+      force = true,
+    })
+  end
+
+  local buf = vim.api.nvim_create_buf(false, true)
+
+  claude_sessions[cwd] = buf
+
+  if OpenClaudeWin(buf) then
+    vim.cmd("lcd " .. vim.fn.fnameescape(cwd))
+
+    vim.fn.termopen {
+      "claude",
+    }
+
     vim.cmd "startinsert"
   end
 end
@@ -105,19 +137,13 @@ end
 
 vim.api.nvim_create_autocmd("TermClose", {
   callback = function(args)
-    for cwd, buf in pairs(aider_sessions) do
+    for cwd, buf in pairs(claude_sessions) do
       if buf == args.buf then
-        aider_sessions[cwd] = nil
+        claude_sessions[cwd] = nil
 
-        if aider_win and vim.api.nvim_win_is_valid(aider_win) then
-          aider_win = nil
+        if claude_win and vim.api.nvim_win_is_valid(claude_win) then
+          claude_win = nil
         end
-
-        vim.fn.jobstart {
-          "ollama",
-          "stop",
-          "qwen3-coder:30b",
-        }
 
         break
       end

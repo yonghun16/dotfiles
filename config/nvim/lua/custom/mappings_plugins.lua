@@ -9,6 +9,7 @@ local dap = require "dap"
 local dapui = require "dapui"
 local gemini = require "custom.ai.gemini"
 local aider = require "custom.ai.aider"
+local claude = require "custom.ai.claude"
 
 -- ================================================================
 -- Sidebars & Editors
@@ -42,12 +43,19 @@ map({ "n", "t" }, "<leader>j", function()
 end, { desc = "Terminal (bottom)" })
 
 -- AI Chat (right side)
-map("n", "<leader>lg", function()
-  gemini.toggle()
-end, { desc = "toggle Gemini CLI" })
 map("n", "<leader>la", function()
   aider.toggle()
 end, { desc = "toggle Aider" })
+
+map("n", "<leader>lc", function()
+  claude.toggle()
+end, {
+  desc = "toggle Claude Code",
+})
+
+map("n", "<leader>lg", function()
+  gemini.toggle()
+end, { desc = "toggle Gemini CLI" })
 
 -- Terminal (floating)
 map({ "n", "t" }, "<leader><leader>", function()
