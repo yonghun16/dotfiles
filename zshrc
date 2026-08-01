@@ -9,9 +9,16 @@ export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 
 # Node.js (PNPM & NVM)
-export PNPM_HOME="$HOME/Library/pnpm"
 export NVM_DIR="$HOME/.nvm"
-export PATH="$PNPM_HOME:$PATH"
+source "$NVM_DIR/nvm.sh"
+
+# pnpm
+export PNPM_HOME="/Users/song-yonghun/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+# pnpm end
 
 # Python
 export PATH="$HOME/Library/Python/3.9/bin:$PATH" # site-packages보다 bin 폴더가 우선입니다.
@@ -77,6 +84,7 @@ alias cp="cp -i"
 alias mv="mv -i"
 alias swap="rm -rf ~/.local/state/nvim/swap/*"
 alias t="tmux attach -t main || tmux new -s main"
+alias update-dev='brew update; brew upgrade; brew cleanup; npm update -g; pnpm update -g; pipx upgrade-all'
 
 # Tmux 특정 설정
 if [ -n "$TMUX" ]; then
@@ -137,10 +145,6 @@ g-new() {
 # 6. 외부 도구 지연 로딩 (속도 향상의 핵심)
 # ==========================================
 
-# NVM (필요할 때 로드하여 터미널 시작 속도 개선)
-zinit ice wait'0b' lucid trigger'nvm'
-zinit snippet "$NVM_DIR/nvm.sh"
-
 # SDKMAN
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
@@ -150,3 +154,5 @@ export SDKMAN_DIR="$HOME/.sdkman"
 
 # 마무리 정보 표시
 clear && neofetch
+export OLLAMA_API_BASE=http://localhost:11434
+
