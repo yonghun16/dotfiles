@@ -13,7 +13,6 @@ M.base46 = {
     CursorLine = { bg = "#033247" },
     Comment = { italic = true },
     ["@comment"] = { italic = true },
-    NormalFloat = { bg = "#00212e" },
     NvimTreeCursorLine = { bg = "#033247" },
     NvimTreeCursorColumn = { bg = "#033247" },
     TelescopeSelection = { bg = "#033247" },
