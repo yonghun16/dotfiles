@@ -1,6 +1,6 @@
 # dotfiles
 <div align="center">
-  <img src="https://github.com/yonghun16/dotfiles/blob/master/preview.jpg?raw=true" width=800px />
+  <img src="https://raw.githubusercontent.com/yonghun16/dotfiles/refs/heads/master/preview.jpg" width=800px />
 </div>
 
 
