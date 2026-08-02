@@ -155,6 +155,7 @@ cd ~/dotfiles
 
 #### UI
   - neoscroll.nvim (부드러운 스크롤)
+  - render-markdown.nvim (Markdown 렌더링)
 
 #### Util
   - toggleterm.nvim (플로팅 터미널)

@@ -7,9 +7,6 @@ local map = vim.keymap.set
 local api = require "nvim-tree.api"
 local dap = require "dap"
 local dapui = require "dapui"
-local gemini = require "custom.ai.gemini"
-local aider = require "custom.ai.aider"
-local claude = require "custom.ai.claude"
 
 -- ================================================================
 -- Sidebars & Editors
@@ -43,19 +40,8 @@ map({ "n", "t" }, "<leader>j", function()
 end, { desc = "Terminal (bottom)" })
 
 -- AI Chat (right side)
-map("n", "<leader>la", function()
-  aider.toggle()
-end, { desc = "toggle Aider" })
-
-map("n", "<leader>lc", function()
-  claude.toggle()
-end, {
-  desc = "toggle Claude Code",
-})
-
-map("n", "<leader>lg", function()
-  gemini.toggle()
-end, { desc = "toggle Gemini CLI" })
+map("n", "<leader>l", "<cmd>CodeCompanionChat Toggle<CR>", { desc = "toggle CodeCompanionChat" })
+map("v", "<leader>l", "<cmd>CodeCompanionChat Add<CR>", { desc = "CodeCompanion Inline" })
 
 -- Terminal (floating)
 map({ "n", "t" }, "<leader><leader>", function()
@@ -74,6 +60,11 @@ map("n", "<leader>ca", ":Neogen<CR>", { desc = "Create code Annotation", silent 
 map("n", "<leader>m", function()
   vim.cmd "WhichKey <leader>"
 end, { desc = "mapping overview (which-key)" })
+
+-- Markdown Preview
+map("n", "<leader>tm", "<cmd>RenderMarkdown toggle<CR>", {
+  desc = "Toggle Markdown Render",
+})
 
 -- ================================================================
 -- fzf-lua (Finder)

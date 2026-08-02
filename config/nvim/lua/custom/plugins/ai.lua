@@ -47,6 +47,106 @@ local plugins = {
       end
     end,
   },
+
+  -- codecompanion.nvim
+  {
+    "olimorris/codecompanion.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "ravitemer/codecompanion-history.nvim",
+    },
+    event = "VeryLazy",
+
+    init = function()
+      -- Ollama 서버 자동 실행
+      vim.fn.jobstart("pgrep -f 'ollama serve' >/dev/null || ollama serve", {
+        detach = true,
+      })
+
+      -- CodeCompanion 종료 시 모델 메모리 해제
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "CodeCompanionChatClosed",
+        callback = function()
+          vim.fn.jobstart(
+            [[
+            ollama ps | grep qwen3-coder:30b >/dev/null &&
+            ollama stop qwen3-coder:30b
+          ]],
+            {
+              detach = true,
+            }
+          )
+        end,
+      })
+    end,
+
+    opts = {
+      display = {
+        chat = {
+          window = {
+            layout = "vertical",
+            relative_width = false,
+            width = 60,
+          },
+        },
+      },
+
+      strategies = {
+        chat = {
+          adapter = "ollama",
+
+          keymaps = {
+            close = {
+              modes = {
+                n = "<C-q>",
+                i = "<C-q>",
+              },
+            },
+
+            stop = {
+              modes = {
+                n = "<C-x>",
+                i = "<C-x>",
+              },
+            },
+          },
+        },
+
+        inline = {
+          adapter = "ollama",
+        },
+      },
+
+      adapters = {
+        ollama = function()
+          return require("codecompanion.adapters").extend("ollama", {
+            schema = {
+              model = {
+                default = "qwen3-coder:30b",
+              },
+
+              endpoint = {
+                default = "http://localhost:11434/api/chat",
+              },
+            },
+          })
+        end,
+      },
+
+      extensions = {
+        history = {
+          enabled = true,
+
+          opts = {
+            auto_save = true,
+
+            path = vim.fn.stdpath "data" .. "/codecompanion/history",
+          },
+        },
+      },
+    },
+  },
 }
 
 return plugins

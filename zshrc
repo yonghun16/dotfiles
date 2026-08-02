@@ -1,5 +1,5 @@
 # ==========================================
-# 1. 환경 변수 (Export) - 가장 먼저 로드
+# 환경 변수 (Export) - 가장 먼저 로드
 # ==========================================
 export LANG=ko_KR.UTF-8
 export EDITOR="nvim"
@@ -31,8 +31,9 @@ export PATH="$JAVA_HOME/bin:$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:
 # API Key
 export GEMINI_API_KEY=""
 
+
 # ==========================================
-# 2. Zinit 설치 및 초기화
+# Zinit 설치 및 초기화
 # ==========================================
 ZINIT_HOME="$HOME/.local/share/zinit/zinit.git"
 if [[ ! -f "$ZINIT_HOME/zinit.zsh" ]]; then
@@ -45,8 +46,9 @@ source "$ZINIT_HOME/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
+
 # ==========================================
-# 3. 테마 및 플러그인 (Turbo Mode 적용)
+# 테마 및 플러그인 (Turbo Mode 적용)
 # ==========================================
 
 # [Theme] Powerlevel10k
@@ -66,8 +68,9 @@ zinit ice wait'0a' lucid atinit"ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets patter
 zinit light zsh-users/zsh-syntax-highlighting
 zinit ice wait'0b' lucid; zinit light zsh-users/zsh-completions
 
+
 # ==========================================
-# 4. 사용자 설정 (Options & Aliases)
+# 사용자 설정 (Options & Aliases)
 # ==========================================
 setopt promptsubst
 setopt SHARE_HISTORY
@@ -94,7 +97,7 @@ fi
 
 
 # ==========================================
-# 5. Gemini CLI 편의성 래퍼
+# Gemini CLI 편의성 래퍼
 # ==========================================
 # 1. 프로젝트 루트 탐색
 _find_gemini_root() {
@@ -142,7 +145,159 @@ g-new() {
 
 
 # ==========================================
-# 6. 외부 도구 지연 로딩 (속도 향상의 핵심)
+# Claude Code CLI 편의성 래퍼
+# ==========================================
+
+# 1. 프로젝트 루트 탐색
+_find_claude_root() {
+    local dir="$PWD"
+
+    while [[ "$dir" != "/" ]]; do
+        if [[ -d "$dir/.git" ]] ||
+           [[ -f "$dir/package.json" ]] ||
+           [[ -f "$dir/go.mod" ]] ||
+           [[ -f "$dir/Cargo.toml" ]] ||
+           [[ -f "$dir/Makefile" ]]; then
+            echo "$dir"
+            return
+        fi
+
+        dir=$(dirname "$dir")
+    done
+
+    echo "$PWD"
+}
+
+
+_print_claude_root() {
+    printf "\033[1;35m󰙅 Claude Root: %s\033[0m\n" "$1"
+}
+
+
+# 2. 최근 세션 이어서 하기
+c-resume() {
+    local root=$(_find_claude_root)
+
+    (
+        cd "$root" || exit
+        _print_claude_root "$root"
+        claude --resume
+    )
+}
+
+
+# 3. 새 세션 시작
+c-new() {
+    local root=$(_find_claude_root)
+
+    (
+        cd "$root" || exit
+        _print_claude_root "$root"
+        claude
+    )
+}
+
+
+# ==========================================
+# Aider CLI 편의성 래퍼
+# ==========================================
+
+# 1. 프로젝트 루트 탐색
+_find_aider_root() {
+    local dir="$PWD"
+
+    while [[ "$dir" != "/" ]]; do
+        if [[ -d "$dir/.git" ]] ||
+           [[ -f "$dir/package.json" ]] ||
+           [[ -f "$dir/pyproject.toml" ]] ||
+           [[ -f "$dir/go.mod" ]] ||
+           [[ -f "$dir/Cargo.toml" ]] ||
+           [[ -f "$dir/Makefile" ]]; then
+            echo "$dir"
+            return
+        fi
+
+        dir=$(dirname "$dir")
+    done
+
+    echo "$PWD"
+}
+
+
+_print_aider_root() {
+    printf "\033[1;32m󰚩 Aider Root: %s\033[0m\n" "$1"
+}
+
+
+# 2. Ollama 서버 실행 확인
+_start_ollama() {
+    if ! curl -s http://localhost:11434/api/tags >/dev/null; then
+        echo "󰒋 Starting Ollama server..."
+        nohup ollama serve >/dev/null 2>&1 &
+        # 서버 준비 대기
+        sleep 3
+    fi
+}
+
+
+# 3. 모델 메모리 해제
+_stop_aider_model() {
+    echo ""
+    echo "󰚌 Unloading qwen3-coder:30b..."
+    ollama stop qwen3-coder:30b >/dev/null 2>&1
+    echo "✓ Model unloaded"
+}
+
+
+# 4. 새 Aider 세션
+a-new() {
+    local root=$(_find_aider_root)
+    (
+        cd "$root" || exit
+
+        _print_aider_root "$root"
+
+        _start_ollama
+
+        # Aider 종료(Ctrl+C 포함) 시 모델 해제
+        trap '_stop_aider_model' EXIT INT TERM
+
+        aider \
+          --dark-mode \
+          --model ollama/qwen3-coder:30b
+    )
+}
+
+# 5. 이전 대화 복원
+a-resume() {
+    local root=$(_find_aider_root)
+    (
+        cd "$root" || exit
+
+        _print_aider_root "$root"
+
+        _start_ollama
+
+        # Aider 종료(Ctrl+C 포함) 시 모델 해제
+        trap '_stop_aider_model' EXIT INT TERM
+
+        aider \
+          --dark-mode \
+          --model ollama/qwen3-coder:30b \
+          --restore-chat-history
+    )
+}
+
+# 6. 수동 모델 종료
+a-stop() {
+    echo "󰚌 Stopping qwen3-coder:30b..."
+    ollama stop qwen3-coder:30b
+    echo "✓ Model unloaded"
+}
+
+
+# ==========================================
+# 외부 도구 지연 로딩 (속도 향상의 핵심)
 # ==========================================
 
 # SDKMAN
