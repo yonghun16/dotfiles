@@ -124,6 +124,7 @@ cd ~/dotfiles
 #### AI
   - windsurf.nvim (AI 코드 자동완성)
   - Aider (AI 코딩 어시스턴트 with ollima)
+  - Codecompanion.nvim (AI 코딩 어시스턴트 with ollima)
   - Claude Code (AI 코딩 어시스턴트)
   - Gemini CLI (AI 코딩 어시스턴트)
 
