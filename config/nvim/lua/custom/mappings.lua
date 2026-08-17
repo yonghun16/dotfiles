@@ -6,6 +6,7 @@ require "nvchad.mappings"
 local map = vim.keymap.set
 local api = require "nvim-tree.api"
 local del = vim.api.nvim_del_keymap
+local osc52 = require "vim.ui.clipboard.osc52"
 
 -- ================================================================
 -- Remove NvChad Default Keymaps
@@ -25,6 +26,21 @@ del("n", "<leader>e") -- nvimtree focus window
 map({ "n", "i", "v", "c" }, "<C-c>", "<ESC>")
 map("t", "<ESC>", "<C-\\><C-n>")
 map("n", "<leader>q", SafeQuitAll, { desc = "Safe Quit All", noremap = true, silent = true })
+
+-- OSC52로 복사 (Y키 사용)
+map("n", "Y", function()
+  vim.cmd "normal! yy"
+  local lines = { vim.fn.getreg '"' }
+  local regtype = vim.fn.getregtype '"'
+  osc52.copy "+"(lines, regtype)
+end, { desc = "Yank line via OSC52 (system clipboard)" })
+
+map("v", "Y", function()
+  vim.cmd "normal! y"
+  local lines = vim.fn.getreg('"', 1, true)
+  local regtype = vim.fn.getregtype '"'
+  osc52.copy "+"(lines, regtype)
+end, { desc = "Yank selection via OSC52 (system clipboard)" })
 
 -- Change root directory
 map("n", "<leader>.", function()
