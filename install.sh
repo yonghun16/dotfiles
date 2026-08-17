@@ -72,6 +72,7 @@ install_or_update_zinit
 link "zshrc" "$HOME/.zshrc"
 link "tmux.conf" "$HOME/.tmux.conf"
 link "clang-format" "$HOME/.clang-format"
+link "termux" "$HOME/.termux"
 
 ## Config 폴더 내부 연결
 link "config/ghostty" "$CONFIG/ghostty"

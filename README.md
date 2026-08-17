@@ -99,24 +99,30 @@ cd ~/dotfiles
 #### 🔴 tmux 
 > tmux : https://github.com/tmux/tmux/wiki
   - install
-  ```bash
-  brew install tmux
-  ```
+    ```bash
+    brew install tmux
+    ```
   - setting : `.tmux.conf`
-    - ```bash
-      cp .tmux.conf ~/.tmux.conf
-      ```
+    ```bash
+    cp .tmux.conf ~/.tmux.conf
+    ```
   - 파일을 수정한 뒤 tmux 안에서:
-    - ```bash
-      tmux source-file ~/.tmux.conf
-      ```
+    ```bash
+    tmux source-file ~/.tmux.conf
+    ```
+#### 🔴 Termux
+> Termux : https://termux.dev/en/
+  - setting
+    ```bash
+    `~/.termux/termux.properties`
+    ```
 
 #### 🔴 Zinit
-      > oh-my-zsh : https://ohmyz.sh/
-      - Neofetch
-      ```bash
-      source ~/.zshrc
-      ```
+> oh-my-zsh : https://ohmyz.sh/
+  - Neofetch
+    ```bash
+    source ~/.zshrc
+    ```
 
 
 
