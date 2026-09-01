@@ -40,3 +40,8 @@ palette = 12=#6bbaf6
 palette = 13=#f065a9
 palette = 14=#50bbad
 palette = 15=#f9f8f6
+cursor-color = #ff9e64
+cursor-text = #00121a
+cursor-style = block
+cursor-style-blink = false
+shell-integration-features = no-cursor

@@ -8,9 +8,9 @@ export EDITOR="nvim"
 export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 
-# Node.js (PNPM & NVM)
+# NVM
 export NVM_DIR="$HOME/.nvm"
-source "$NVM_DIR/nvm.sh"
+[[ -s "$NVM_DIR/nvm.sh" ]] && source "$NVM_DIR/nvm.sh"
 
 # pnpm
 export PNPM_HOME="/Users/song-yonghun/Library/pnpm"
@@ -305,7 +305,10 @@ export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
 
 # iTerm2 Integration
-[[ -e "${HOME}/.iterm2_shell_integration.zsh" ]] && source "${HOME}/.iterm2_shell_integration.zsh"
+if [[ "$TERM_PROGRAM" == "iTerm.app" ]] &&
+   [[ -f "$HOME/.iterm2_shell_integration.zsh" ]]; then
+    source "$HOME/.iterm2_shell_integration.zsh"
+fi
 
 # 마무리 정보 표시
 clear && neofetch
