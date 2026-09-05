@@ -147,7 +147,7 @@ AI가 건드리지 않습니다. 폴더 이름으로 담당을 추측하지 말�
 ~~~
 app     (Next.js App Router — 라우팅/전역 설정)
   ↓
-pages   (라우트별 화면 조합)
+views   (라우트별 화면 조합 — FSD 표준 명칭은 "pages"이나, 아래 이유로 이 프로젝트는 "views"를 사용)
   ↓
 widgets (여러 feature/entity를 조합한 큰 UI 블록)
   ↓
@@ -157,19 +157,27 @@ entities(비즈니스 엔티티)
   ↓
 shared  (도메인 지식 없는 재사용 인프라: UI 키트, lib, api 클라이언트, config)
 ~~~
-- App Router만 사용하므로 Next.js의 `pages/` 디렉토리(Pages Router)와 이름이
-  겹치지 않습니다. `app/`은 라우팅과 전역 Provider 조립만 담당하고, 각
-  라우트의 `page.tsx`는 해당 라우트에 대응하는 `pages/` 레이어의 슬라이스를
-  불러와 조립만 합니다.
+- **FSD 표준 레이어명은 원래 `pages`이지만, 이 프로젝트에서는 `views`를
+  사용합니다.** Next.js는 프로젝트 루트(또는 `src/`) 바로 아래에 `pages/`라는
+  이름의 폴더가 있으면, App Router만 쓰기로 했는지와 무관하게 이를 **레거시
+  Pages Router 진입점으로 자동 인식**합니다. 이로 인해 FSD 레이어용 `pages/`
+  폴더와 `app/`의 실제 라우트가 같은 경로를 두고 충돌하는 문제가 실제
+  빌드에서 확인되었습니다. FSD 커뮤니티에서도 Next.js와 함께 쓸 때는 이
+  충돌을 피하기 위해 `views`라는 대체 명칭을 관례적으로 사용하며, 이
+  보일러플레이트도 그 관례를 따릅니다.
+- 이와는 별개로 `page.tsx`는 Next.js App Router 자체의 예약 파일명(라우트
+  진입점)이며, FSD 레이어명과 무관하게 그대로 사용합니다. `app/`은 라우팅과
+  전역 Provider 조립만 담당하고, 각 라우트의 `page.tsx`는 해당 라우트에
+  대응하는 `views/` 레이어의 슬라이스를 불러와 조립만 합니다.
 - **상위 레이어는 하위 레이어만 참조합니다** (FSD 표준 규칙). 이 규칙을 어기는
   import는 만들지 마세요.
   - 예: `features/`는 `entities/`, `shared/`를 참조할 수 있지만 `widgets/`,
-    `pages/`를 참조할 수 없습니다.
+    `views/`를 참조할 수 없습니다.
 - 같은 레이어의 다른 슬라이스는 직접 내부 파일을 import하지 않고, 슬라이스의
   공개 API(`index.ts`)를 통해서만 참조합니다.
 
 ## 슬라이스 내부 세그먼트
-`entities/`, `features/`, `widgets/`, `pages/`의 각 슬라이스(예:
+`entities/`, `features/`, `widgets/`, `views/`의 각 슬라이스(예:
 `entities/user/`, `features/auth/`)는 다음 세그먼트로 구성합니다. 담당은
 세그먼트가 아니라 각 파일의 `@owner` 태그가 정합니다.
 - `ui/` — 컴포넌트
@@ -194,13 +202,13 @@ shared  (도메인 지식 없는 재사용 인프라: UI 키트, lib, api 클라
 >    등)
 >    → 예 → `widgets/<widget-name>/`
 > 6. **특정 라우트 전용 조합인가?**
->    → 예 → `pages/<page-name>/`
+>    → 예 → `views/<page-name>/`
 
 기존 코드가 여러 곳에서 재사용된다는 이유로 같은 레이어 안에서 옆으로
 공유하지 않습니다. FSD에서는 **재사용이 필요하면 더 아래 레이어(entities
 또는 shared)로 내립니다.** 이 순서를 바꾸지 않고, 폴더를 늘리거나 이름을
 바꾸기 전에 반드시 위 기준으로 먼저 판단합니다. `apps/`, `packages/`,
-그리고 FSD 6개 레이어(`app pages widgets features entities shared`) 같은
+그리고 FSD 6개 레이어(`app views widgets features entities shared`) 같은
 최상위 카테고리는 새로 만들지 않습니다. 다만 그 안에 들어가는 app 이름,
 package 이름, 슬라이스 이름은 프로젝트 필요에 따라 늘어나는 것이 정상입니다.
 
@@ -273,10 +281,13 @@ async function createUser(email: string) {
 - `app/` 폴더는 Next.js의 파일 기반 라우팅 규칙을 그대로 따릅니다 (세그먼트
   폴더, `page.tsx`, `layout.tsx`, `loading.tsx`, `error.tsx` 등). 이 폴더의
   내부 모양은 프레임워크가 정하는 것이므로 임의로 재구성하지 않습니다.
+  **주의**: `page.tsx`는 Next.js App Router의 예약 파일명이며, 아래 FSD의
+  `views/` 레이어(라우트별 화면 조합)와는 별개 개념입니다. `page.tsx`는
+  라우팅 진입점 역할만 하고, 실제 화면 조합 로직은 `views/`에 둡니다.
 - 루트 `layout.tsx`와 `providers.tsx`에는 라우팅 조립과 전역 Provider 조합만
-  두고, 비즈니스 로직은 두지 않습니다. 실제 로직은 FSD의 `pages/`,
+  두고, 비즈니스 로직은 두지 않습니다. 실제 로직은 FSD의 `views/`,
   `widgets/`, `features/` 등으로 분리합니다.
-- 각 라우트의 `page.tsx`는 대응하는 `pages/` 레이어 슬라이스를 조합해 실제
+- 각 라우트의 `page.tsx`는 대응하는 `views/` 레이어 슬라이스를 조합해 실제
   화면을 구성하는 역할만 하고, 하위 레이어의 구현을 직접 담지 않습니다.
 
 ## Server/Client Component
@@ -315,7 +326,7 @@ usePosts.ts
 # 프로젝트 구조
 다음 구조를 유지합니다. **이 구조는 프로젝트 규모/도메인과 무관하게 고정입니다.**
 모노레포 최상위 카테고리(`apps/`, `packages/`, `docs/`)와 각 app 내부의 FSD
-레이어(`app pages widgets features entities shared`)를 새로 만들지 않고, 새
+레이어(`app views widgets features entities shared`)를 새로 만들지 않고, 새
 앱은 `apps/` 아래에, 새 공유 코드는 `packages/` 아래에, 새 도메인/기능은
 알맞은 FSD 레이어 안에 슬라이스로 배치합니다. `apps/`, `packages/`, 슬라이스
 하위의 실제 이름([[web, admin, user, auth 등]])만 프로젝트마다 달라집니다.
@@ -332,7 +343,8 @@ project-root/
 │           │   ├── layout.tsx                  # 루트 레이아웃 (Provider 조합)
 │           │   └── providers.tsx                 # 전역 Provider 묶음 (Client Component)
 │           │
-│           ├── pages/                      # 라우트별 화면 조합 (FSD "pages" 레이어)
+│           ├── views/                      # 라우트별 화면 조합 (FSD "pages" 레이어의 대체 명칭 — Next.js의
+│           │   │                           #   레거시 Pages Router 예약 폴더명(pages/)과 충돌을 피하기 위해 사용)
 │           │   └── [[page-name]]/
 │           │       ├── ui/
 │           │       └── model/
@@ -392,7 +404,7 @@ project-root/
 | `apps/` | 실행 가능한 Next.js 앱들 |
 | `packages/` | 2개 이상 app이 공유하는 코드만 |
 | `app/` (각 app 내부) | Next.js App Router. 라우팅과 전역 Provider를 "조립"만 하는 곳 |
-| `pages/` | 특정 라우트 전용 화면 조합 |
+| `views/` | 특정 라우트 전용 화면 조합 (FSD 표준 명칭 "pages"의 프로젝트 내 대체 명칭) |
 | `widgets/` | 여러 feature/entity를 조합한 화면 블록 |
 | `features/` | 사용자 인터랙션 단위 기능 |
 | `entities/` | 비즈니스 엔티티의 데이터/표현 |
@@ -542,7 +554,7 @@ AI는 다음을 지킵니다.
    공용인가 → `packages/`, (2) 도메인 지식 없는 재사용 코드인가 →
    `shared/`, (3) 엔티티 데이터/표현인가 → `entities/`, (4) 사용자 인터랙션
    기능인가 → `features/`, (5) 여러 feature/entity 조합 블록인가 →
-   `widgets/`, (6) 라우트 전용 조합인가 → `pages/` (`FSD 아키텍처 원칙`
+   `widgets/`, (6) 라우트 전용 조합인가 → `views/` (`FSD 아키텍처 원칙`
    섹션 참고). 위치를 정한 뒤에는 `@owner: ai` 태그를 달아 새 파일을
    만듭니다. `apps/`, `packages/`, FSD 6개 레이어 같은 최상위 카테고리는
    임의로 늘리지 않습니다.
