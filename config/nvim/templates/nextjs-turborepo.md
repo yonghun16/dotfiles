@@ -1,4 +1,4 @@
-# CLAUDE.md
+# AGENTS.md
 > 📌 이 파일은 **Next.js + Turborepo 모노레포 + FSD(Feature-Sliced Design)**
 > 보일러플레이트입니다. `[[ ]]`로 표시된 부분만 프로젝트에 맞게 채우고, 그 외
 > 규칙(AI/Human 작업 경계, FSD 아키텍처 원칙, 문서 관리 규칙, 코딩 규칙 등)은
