@@ -187,3 +187,8 @@ function ToggleFoldColumn()
     vim.wo.foldcolumn = "0"
   end
 end
+
+-- Toggle Wrap
+function ToggleWrap()
+  vim.o.wrap = not vim.o.wrap
+end

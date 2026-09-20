@@ -78,6 +78,9 @@ map(
   { noremap = true, silent = true, desc = "toggle Transparency" }
 )
 
+-- Toggle line wrap
+map("n", "<leader>tw", ToggleWrap, { desc = "Toggle line wrap" })
+
 -- ================================================================
 -- Apply Terminal Keybindings in INSERT Mode
 -- ================================================================
