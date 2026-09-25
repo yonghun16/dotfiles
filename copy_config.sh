@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env bash
 
 \cp -rf ~/.config/nvim/lua/custom ~/dotfiles/config/nvim/lua/
 \cp -rf ~/.config/nvim/templates ~/dotfiles/config/nvim/
