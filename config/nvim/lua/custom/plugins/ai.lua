@@ -96,6 +96,12 @@ local plugins = {
         chat = {
           adapter = "ollama",
 
+          tools = {
+            opts = {
+              default_tools = { "insert_edit_into_file", "read_file" },
+            },
+          },
+
           keymaps = {
             close = {
               modes = {
