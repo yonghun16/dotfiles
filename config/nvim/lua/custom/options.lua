@@ -141,15 +141,10 @@ function Compile()
     vim.cmd(string.format(":!javac -encoding utf-8 -d %s %s", bin_dir, filepath))
     vim.cmd(string.format('TermExec cmd="java -cp %s %s"', bin_dir, filename))
   elseif filetype == "rust" then
-    vim.cmd(
-      string.format(
-        'TermExec cmd="rustc --edition 2021 -O -o %s %s && cd %s && %s"',
-        binpath,
-        filepath,
-        project_dir,
-        binpath
-      )
-    )
+    vim.cmd(string.format(":!rustc --edition 2021 -o %s %s", binpath, filepath))
+    if vim.v.shell_error == 0 then
+      vim.cmd(string.format('TermExec cmd="%s"', binpath))
+    end
   else
     vim.cmd ':echo "This file is not a supported source file."'
   end
