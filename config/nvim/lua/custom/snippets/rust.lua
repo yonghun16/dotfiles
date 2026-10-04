@@ -8,46 +8,48 @@ local fmt = require("luasnip.extras.fmt").fmt
 local f = ls.function_node
 
 return {
-  -- Online judge용 주석 Header (TypeScript)
+  -- Online judge용 주석 Header (Rust)
   s(
     "headerComment OJ",
     fmt(
       [[
-/** -----------------------------------------------------------
+/* -----------------------------------------------------------
  * Sub    : [<>] <>
  * Link   : <>
- * Level  : 
- * Tag    : TS, 
+ * Level  :
+ * Tag    : Rust,
  * ------------------------------------------------------------
  * Approach
  * <>
  * ------------------------------------------------------------
  */
+#![allow(unused)]
 
-declare var require: any;
-const fs: any = require("fs");
+use std::io::{self, BufWriter, Read, Write};
 
-const filePath: string = fs.existsSync("./input_test.txt")
-  ? "./input_test.txt"
-  : "/dev/stdin";
+fn read_input() ->> String {
+    std::fs::read_to_string("./input_test.txt").unwrap_or_else(|_| {
+        let mut s = String::new();
+        io::stdin().read_to_string(&mut s).unwrap();
+        s
+    })
+}
 
-const input: string[] = fs.readFileSync(filePath, "utf-8").trim().split(/\n+/);
+fn main() {
+    let input = read_input();
+    let mut it = input.split_ascii_whitespace();
+    let mut out = BufWriter::new(io::stdout().lock());
 
-/* 📥 Input */
-const getInputData = () =>> {
-  let idx: number = 0;
-  return {};
-};
+    /* 📥 Input */
+    // let n: usize = it.next().unwrap().parse().unwrap();
+    // let a: Vec<<i64>> = (0..n).map(|_| it.next().unwrap().parse().unwrap()).collect();
 
-/* ⚙️ Logic */
-const solution = (data: ReturnType<<typeof getInputData>>) =>> {
-  <>
-};
+    /* ⚙️ Logic */
+    <>
 
-/* 🚀 Run Program */
-(() =>> {
-  solution(getInputData());
-})();
+    /* 🚀 Output */
+    // writeln!(out, "{}", ans).unwrap();
+}
 ]],
       {
         c(1, { i(nil, "BOJ"), i(nil, "Programmers"), i(nil, "JOL") }),
@@ -71,12 +73,12 @@ const solution = (data: ReturnType<<typeof getInputData>>) =>> {
     )
   ),
 
-  -- 일반 파일용 주석 Header (TypeScript)
+  -- 일반 파일용 주석 Header (Rust)
   s(
     "headerComment",
     fmt(
       [[
-/** ------------------------------------------------------------
+/* ------------------------------------------------------------
  * File     : <>
  * Brief    : <>
  * ------------------------------------------------------------
