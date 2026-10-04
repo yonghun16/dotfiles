@@ -13,35 +13,36 @@ return {
     "headerComment OJ",
     fmt(
       [[
-"""
-------------------------------------------------------------
-Sub    : [{}] {}
-Link   : {}
-Level  : 
-Tag    : Python, 
-------------------------------------------------------------
-Approach
-{}
-------------------------------------------------------------
-"""
+# -----------------------------------------------------------
+# Sub    : [<>] <>
+# Link   : <>
+# Level  :
+# Tag    : Python,
+# ------------------------------------------------------------
+# Approach
+# <>
+# ------------------------------------------------------------
 
 import os
 import sys
 
-file_path = os.path.join(os.path.dirname(__file__), "input_test.txt")
+if os.path.exists("./input_test.txt"):
+    sys.stdin = open("./input_test.txt", "r", encoding="utf-8")
 
-if os.path.exists(file_path):
-    sys.stdin = open(file_path, "r", encoding="utf-8")
+input = sys.stdin.readline
+sys.setrecursionlimit(10**6)
 
 
 # 📥 Input
 def get_input_data():
-    pass
+    # n = int(input())
+    # arr = list(map(int, input().split()))
+    return {}
 
 
 # ⚙️ Logic
-def solution():
-    pass
+def solution(data):
+    <>
 
 
 # 🚀 Run Program
@@ -49,7 +50,7 @@ if __name__ == "__main__":
     solution(get_input_data())
 ]],
       {
-        c(1, { i(nil, "BOJ"), i(nil, "Programmers") }),
+        c(1, { i(nil, "BOJ"), i(nil, "Programmers"), i(nil, "JOL") }),
         i(2, "문제 제목"),
         d(3, function(args)
           local platform = args[1][1] or ""
@@ -58,11 +59,15 @@ if __name__ == "__main__":
             prefix = "https://www.acmicpc.net/problem/"
           elseif platform == "Programmers" then
             prefix = "https://school.programmers.co.kr/learn/courses/30/lessons/"
+          elseif platform == "JOL" then
+            prefix = "https://jungol.co.kr/problem/"
           end
           return sn(nil, i(1, prefix))
         end, { 1 }),
+        i(4, "풀이 접근 방법"),
         i(0),
-      }
+      },
+      { delimiters = "<>" } -- 중괄호 대신 <>를 사용하도록 설정
     )
   ),
 
@@ -71,15 +76,14 @@ if __name__ == "__main__":
     "headerComment",
     fmt(
       [[
-"""
------------------------------------------------------------
-File    : {}
-Brief   : {}
------------------------------------------------------------
-Abstract
-{}
------------------------------------------------------------
-"""
+# ------------------------------------------------------------
+# File     : <>
+# Brief    : <>
+# ------------------------------------------------------------
+# Abstract
+# <>
+# ------------------------------------------------------------
+
 ]],
       {
         f(function()
@@ -87,7 +91,8 @@ Abstract
         end, {}), -- 현재 파일명
         i(1, "간단 설명 입력"),
         i(0),
-      }
+      },
+      { delimiters = "<>" } -- 중괄호 대신 <>를 사용하도록 설정
     )
   ),
 }
