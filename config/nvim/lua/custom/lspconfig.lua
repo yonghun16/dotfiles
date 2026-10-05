@@ -38,7 +38,6 @@ local servers = {
   "html",
   "pug",
   "cssls",
-  "clangd",
   "jdtls",
   "sqlls",
 }
@@ -70,5 +69,15 @@ lspconfig.emmet_language_server.setup {
         ["bem.enabled"] = true,
       },
     },
+  },
+}
+
+-- Clangd
+lspconfig.clangd.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  cmd = {
+    "clangd",
+    "--query-driver=/opt/homebrew/bin/g++-*",
   },
 }

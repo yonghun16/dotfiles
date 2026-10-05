@@ -3,33 +3,32 @@ local h = require "custom.snip_utils.header"
 
 return {
   h.oj_header {
-    tag = "C",
+    tag = "C++",
     body = [[
 
-#include <<stdio.h>>
-#include <<stdlib.h>>
-#include <<string.h>>
+#include <<bits/stdc++.h>>
+using namespace std;
 
-typedef long long ll;
+using ll = long long;
 
-int main(void) {
-    FILE* fp = fopen("./input_test.txt", "r");
-    if (fp) {
+int main() {
+    if (FILE* fp = fopen("./input_test.txt", "r")) {
         fclose(fp);
         freopen("./input_test.txt", "r", stdin);
     }
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
     /* 📥 Input */
-    // int n;
-    // scanf("%d", &n);
-    // ll* a = malloc(sizeof(ll) * n);
-    // for (int i = 0; i << n; i++) scanf("%lld", &a[i]);
+    // int n; cin >>>> n;
+    // vector<<ll>> a(n);
+    // for (auto& x : a) cin >>>> x;
 
     /* ⚙️ Logic */
     <>
 
     /* 🚀 Output */
-    // printf("%lld\n", ans);
+    // cout <<<< ans <<<< '\n';
 
     return 0;
 }

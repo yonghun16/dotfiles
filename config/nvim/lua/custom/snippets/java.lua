@@ -1,82 +1,38 @@
-local ls = require "luasnip"
-local s = ls.snippet
-local i = ls.insert_node
-local c = ls.choice_node
-local d = ls.dynamic_node
-local sn = ls.snippet_node
-local fmt = require("luasnip.extras.fmt").fmt
-local f = ls.function_node
+package.loaded["custom.snip_utils.header"] = nil -- 공통 모듈 수정 시 즉시 반영 (선택)
+local h = require "custom.snip_utils.header"
 
 return {
-  -- Online judge용 주석 Header (Java)
-  s(
-    "headerComment OJ",
-    fmt(
-      [[
-/* -----------------------------------------------------------
- * Sub    : [{}] {}
- * Link   : {}
- * Level  : 
- * Tag    : Java, 
- * -----------------------------------------------------------
- * Solution
- * {}
- * ----------------------------------------------------------- */
+  h.oj_header {
+    tag = "Java",
+    body = [[
 
-public class Main {{
-    public static void main(String[] args) {{
-        
-    }}
-}}
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        File file = new File("./input_test.txt");
+        BufferedReader br = file.exists()
+            ? new BufferedReader(new FileReader(file))
+            : new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
+        StringBuilder sb = new StringBuilder();
+
+        /* 📥 Input */
+        // int n = Integer.parseInt(br.readLine());
+        // st = new StringTokenizer(br.readLine());
+        // List<<Integer>> a = new ArrayList<<>>();
+        // for (int i = 0; i << n; i++) a.add(Integer.parseInt(st.nextToken()));
+
+        /* ⚙️ Logic */
+        <>
+
+        /* 🚀 Output */
+        // sb.append(ans).append('\n');
+        System.out.print(sb);
+    }
+}
 ]],
-      {
-        c(1, { i(nil, "BOJ"), i(nil, "Programmers") }),
-        i(2, "문제 제목"),
-        d(3, function(args)
-          local platform = args[1][1] or ""
-          local prefix = ""
-          if platform == "BOJ" then
-            prefix = "https://www.acmicpc.net/problem/"
-          elseif platform == "Programmers" then
-            prefix = "https://school.programmers.co.kr/learn/courses/30/lessons/"
-          end
-          return sn(nil, i(1, prefix))
-        end, { 1 }),
-        i(0),
-      }
-    )
-  ),
-
-  -- 일반 파일용 주석 Header (Java)
-  s(
-    "headerComment",
-    fmt(
-      [[
-/* ------------------------------------------------------------
- * File     : {}
- * Brief    : {}
- * ------------------------------------------------------------
- * Abstract
- * {}
- * ------------------------------------------------------------ */
-
-public class {} {{
-    public static void main(String[] args) {{
-        {}
-    }}
-}}
-]],
-      {
-        f(function()
-          return vim.fn.expand "%:t"
-        end, {}),
-        i(1, "간단 설명 입력"),
-        i(2, "상세 설명"),
-        f(function()
-          return vim.fn.expand "%:t:r"
-        end, {}),
-        i(0),
-      }
-    )
-  ),
+  },
+  h.file_header(),
 }
