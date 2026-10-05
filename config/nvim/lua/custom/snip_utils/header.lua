@@ -17,6 +17,7 @@ local LINK_PREFIX = {
 }
 
 local DASH = string.rep("-", 60)
+local DATE_FORMAT = "%Y-%m-%d"
 
 -- 주석 스타일: 새 언어 계열이 필요하면 여기에 추가
 local STYLES = {
@@ -55,6 +56,13 @@ local function build_comment(style_name, lines)
   return table.concat(out, "\n") .. "\n"
 end
 
+-- 스니펫을 펼치는 시점의 오늘 날짜
+local function date_node()
+  return f(function()
+    return os.date(DATE_FORMAT)
+  end, {})
+end
+
 local function platform_choice(pos)
   local choices = {}
   for _, p in ipairs(PLATFORMS) do
@@ -77,6 +85,7 @@ end
 function M.oj_header(opts)
   local header = build_comment(opts.comment, {
     "Sub    : [<>] <>",
+    "Date   : <>",
     "Link   : <>",
     "Level  :",
     "Tag    : " .. opts.tag .. ",",
@@ -90,6 +99,7 @@ function M.oj_header(opts)
     fmt(header .. opts.body, {
       platform_choice(1),
       i(2, "문제 제목"),
+      date_node(),
       link_node(3, 1),
       i(4, "풀이 접근 방법"),
       i(0),
@@ -99,10 +109,13 @@ end
 
 --- opts.comment : "c"(기본) | "hash"
 --- opts.trig    : 트리거 (기본 "headerComment")
+--- opts.owner   : Owner 기본값 (기본 "")
 function M.file_header(opts)
   opts = opts or {}
   local header = build_comment(opts.comment, {
     "File     : <>",
+    "Date     : <>",
+    "Owner    : <>",
     "Brief    : <>",
     "---",
     "Abstract",
@@ -115,7 +128,9 @@ function M.file_header(opts)
       f(function()
         return vim.fn.expand "%:t"
       end, {}),
-      i(1, "간단 설명 입력"),
+      date_node(),
+      i(1, opts.owner or ""),
+      i(2, "간단 설명 입력"),
       i(0),
     }, { delimiters = "<>" })
   )

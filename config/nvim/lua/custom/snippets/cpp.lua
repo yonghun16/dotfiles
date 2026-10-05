@@ -6,7 +6,8 @@ return {
     tag = "C++",
     body = [[
 
-#include <<bits/stdc++.h>>
+#include <<cstdio>>
+#include <<iostream>>
 using namespace std;
 
 using ll = long long;
