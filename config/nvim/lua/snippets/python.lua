@@ -26,6 +26,7 @@ def get_input_data():
 
 # ⚙️ Logic
 def solution(data):
+    pass
     <>
 
 
