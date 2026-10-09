@@ -1,58 +1,36 @@
 -- ================================================================
--- Warning Message 무시
+-- LSP Config (Neovim 0.11+ 내장 API: vim.lsp.config / vim.lsp.enable)
+-- 위치: ~/.config/nvim/lua/configs/lspconfig.lua
+-- 실행 파일이 설치된 서버만 켜므로, 맥과 Termux에서 같은 파일을 써도 에러가 나지 않는다.
 -- ================================================================
--- 1.vim.deprecate 무시 (0.11 버전의 주된 경고 경로)
-if vim.deprecate then
-  local original_deprecate = vim.deprecate
-  ---@diagnostic disable-next-line: duplicate-set-field
-  vim.deprecate = function(msg, ...)
-    if msg and (msg:find "lspconfig" or msg:find "deprecated") then
-      return -- lspconfig 관련 경고면 아무것도 안 하고 종료
-    end
-    return original_deprecate(msg, ...)
-  end
-end
 
--- 2. vim.notify 무시 (구버전 호환 및 기타 알림 경로)
-local original_notify = vim.notify
----@diagnostic disable-next-line: duplicate-set-field
-vim.notify = function(msg, level, opts)
-  if type(msg) == "string" and (msg:find "require%('lspconfig'%)" or msg:find "deprecated") then
-    return
-  end
-  original_notify(msg, level, opts)
-end
+local nvlsp = require "nvchad.configs.lspconfig"
 
--- ================================================================
--- LSP Config
--- ================================================================
--- LSP Servers Setup
-local on_attach = require("nvchad.configs.lspconfig").on_attach
-local capabilities = require("nvchad.configs.lspconfig").capabilities
-local lspconfig = require "lspconfig"
+-- 모든 서버 공통 설정
+vim.lsp.config("*", {
+  on_attach = nvlsp.on_attach,
+  capabilities = nvlsp.capabilities,
+})
 
+-- ───────────── 서버 목록: lspconfig 이름 = 실행 파일 ─────────────
 local servers = {
-  "pyright",
-  "ts_ls",
-  "tailwindcss",
-  "html",
-  "pug",
-  "cssls",
-  "jdtls",
-  "sqlls",
+  pyright = "pyright-langserver",
+  ts_ls = "typescript-language-server",
+  html = "vscode-html-language-server",
+  cssls = "vscode-css-language-server",
+  bashls = "bash-language-server",
+  rust_analyzer = "rust-analyzer",
+  clangd = "clangd",
+  lua_ls = "lua-language-server",
+  emmet_language_server = "emmet-language-server",
+  tailwindcss = "tailwindcss-language-server",
+  sqlls = "sql-language-server",
+  eslint = "vscode-eslint-language-server",
 }
 
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-  }
-end
-
--- Emmet-language-server 설정
-lspconfig.emmet_language_server.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
+-- ───────────── 서버별 개별 설정 ─────────────
+-- Emmet
+vim.lsp.config("emmet_language_server", {
   filetypes = {
     "html",
     "typescriptreact",
@@ -70,14 +48,28 @@ lspconfig.emmet_language_server.setup {
       },
     },
   },
-}
+})
 
--- Clangd
-lspconfig.clangd.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-  cmd = {
-    "clangd",
-    "--query-driver=/opt/homebrew/bin/g++-*",
+-- clangd: homebrew g++ 경로는 맥에서만 적용
+if vim.fn.has "mac" == 1 then
+  vim.lsp.config("clangd", {
+    cmd = { "clangd", "--query-driver=/opt/homebrew/bin/g++-*" },
+  })
+end
+
+-- Lua: nvim 설정 파일에서 `vim` 전역 변수 경고 제거
+vim.lsp.config("lua_ls", {
+  settings = {
+    Lua = {
+      diagnostics = { globals = { "vim" } },
+      workspace = { checkThirdParty = false },
+    },
   },
-}
+})
+
+-- ───────────── 활성화: 실행 파일이 있는 서버만 ─────────────
+for name, bin in pairs(servers) do
+  if vim.fn.executable(bin) == 1 then
+    vim.lsp.enable(name)
+  end
+end
