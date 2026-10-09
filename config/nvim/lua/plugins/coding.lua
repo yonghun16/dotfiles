@@ -11,7 +11,7 @@ local plugins = {
     config = function()
       require("luasnip.loaders.from_vscode").lazy_load()
       require("luasnip.loaders.from_lua").load {
-        paths = vim.fn.stdpath "config" .. "/lua/custom/snippets",
+        paths = vim.fn.stdpath "config" .. "/lua/snippets",
       }
     end,
   },
