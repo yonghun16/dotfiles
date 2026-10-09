@@ -1,7 +1,6 @@
-#!/usr/bin/env bash
+#!/bin/zsh
 
-\cp -rf ~/.config/nvim/lua/custom ~/dotfiles/config/nvim/lua/
-\cp -rf ~/.config/nvim/templates ~/dotfiles/config/nvim/
+\cp -rf ~/.config/nvim/ ~/dotfiles/config/nvim/
 
 \cp -rf ~/.config/karabiner/karabiner.json ~/dotfiles/config/karabiner/
 

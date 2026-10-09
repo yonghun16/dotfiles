@@ -1,52 +1,39 @@
 #!/data/data/com.termux/files/usr/bin/bash
-# Termux용 LSP 일괄 설치 스크립트
+# Termux용 Python LSP 설치 스크립트 (pyright)
 # 사용법: bash install_lsp.sh
-# 일부 패키지가 실패해도 계속 진행하고, 마지막에 설치 결과를 요약합니다.
-# 대상 서버: pyright, ts_ls, html, cssls, eslint, tailwindcss, sqlls, bashls,
-#            rust_analyzer, clangd, lua_ls, emmet_language_server
+# 실패한 항목이 있어도 끝까지 진행하고, 마지막에 설치 결과를 요약합니다.
 
 set -u
 
 # ───────────── 설치 목록 ─────────────
-# pkg: Termux 저장소 패키지 (안드로이드에서 실행되는 바이너리)
+# pkg: Termux 저장소 패키지
 PKG_PACKAGES=(
+    python
     nodejs
-    git
-    rust          # rustc + cargo
-    rust-analyzer # Rust LSP
-    clang         # C/C++ 컴파일러 + clangd
     lua-language-server
-    shellcheck # bash-language-server 진단용
+    shellcheck
+    shfmt
 )
 
-# npm: 전역 설치 (Node 기반 서버)
+# npm: 전역 설치
 NPM_PACKAGES=(
-    typescript
-    typescript-language-server     # ts_ls (TypeScript, JavaScript)
-    pyright                        # Python
-    bash-language-server           # bashls (sh, bash)
-    vscode-langservers-extracted   # html, cssls, eslint, json
-    "@tailwindcss/language-server" # tailwindcss
-    sql-language-server            # sqlls (네이티브 모듈 때문에 실패할 수 있음)
-    "@olrtg/emmet-language-server" # emmet
+    pyright # Python LSP (pyright-langserver 포함)
+    bash-language-server
 )
 
 # 설치 후 점검할 실행 파일
 CHECK_BINS=(
-    tsc
-    typescript-language-server
+    python
+    pip
+    node
+    npm
+    pyright
     pyright-langserver
     bash-language-server
-    shellcheck
-    vscode-html-language-server
-    vscode-css-language-server
-    vscode-eslint-language-server
-    tailwindcss-language-server
-    sql-language-server
-    emmet-language-server
-    rust-analyzer
-    clangd
     lua-language-server
+    shellcheck
+    shfmt
+    ruff
 )
 
 FAILED=()
@@ -67,6 +54,18 @@ for p in "${PKG_PACKAGES[@]}"; do
         FAILED+=("pkg:$p")
     fi
 done
+
+# ruff (린터/포매터, LSP 내장): pkg 우선, 실패하면 pip로 재시도
+# pip 설치는 소스 빌드라 Rust가 필요하고 오래 걸릴 수 있습니다.
+echo "--- pkg install ruff"
+if ! pkg install -y ruff; then
+    echo "pkg ruff 실패, pip로 재시도 (rust 필요)"
+    if pkg install -y rust && pip install ruff; then
+        :
+    else
+        FAILED+=("ruff")
+    fi
+fi
 
 # ───────────── 2. npm 패키지 ─────────────
 echo
@@ -89,16 +88,16 @@ echo "==> [3/3] 설치 확인"
 MISSING=()
 for b in "${CHECK_BINS[@]}"; do
     if path=$(command -v "$b" 2>/dev/null); then
-        printf "  OK    %-34s %s\n" "$b" "$path"
+        printf "  OK    %-24s %s\n" "$b" "$path"
     else
-        printf "  없음  %-34s\n" "$b"
+        printf "  없음  %-24s\n" "$b"
         MISSING+=("$b")
     fi
 done
 
 echo
 if [ ${#FAILED[@]} -eq 0 ] && [ ${#MISSING[@]} -eq 0 ]; then
-    echo "모든 LSP가 설치되었습니다."
+    echo "Python LSP(pyright)가 설치되었습니다."
 else
     [ ${#FAILED[@]} -gt 0 ] && echo "설치 실패: ${FAILED[*]}"
     [ ${#MISSING[@]} -gt 0 ] && echo "PATH에서 찾지 못함: ${MISSING[*]}"
@@ -106,5 +105,4 @@ else
     echo "참고:"
     echo "  - npm 전역 경로가 PATH에 없다면 셸 설정에 추가하세요:"
     echo "      export PATH=\"\$PATH:\$(npm prefix -g)/bin\""
-    echo "  - sql-language-server는 실패해도 나머지에는 영향이 없습니다."
 fi
