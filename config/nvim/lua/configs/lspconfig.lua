@@ -26,6 +26,10 @@ local servers = {
   tailwindcss = "tailwindcss-language-server",
   sqlls = "sql-language-server",
   eslint = "vscode-eslint-language-server",
+  ruff = "ruff",
+  jsonls = "vscode-json-language-server",
+  yamlls = "yaml-language-server",
+  jdtls = "jdtls",
 }
 
 -- ───────────── 서버별 개별 설정 ─────────────
