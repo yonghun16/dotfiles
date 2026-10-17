@@ -1,4 +1,4 @@
-package.loaded["snip_utils.header"] = nil -- 공통 모듈 수정 시 즉시 반영 (선택)
+package.loaded["snip_utils.header"] = nil
 local h = require "snip_utils.header"
 
 return {
@@ -18,14 +18,14 @@ sys.setrecursionlimit(10**6)
 
 
 # 📥 Input
-def get_input_data():
+def get_input_data() ->> tuple:
     # n = int(input())
     # arr = list(map(int, input().split()))
-    return {}
+    return ()
 
 
 # ⚙️ Logic
-def solution(data):
+def solution(data: tuple) ->> None:
     pass
     <>
 
