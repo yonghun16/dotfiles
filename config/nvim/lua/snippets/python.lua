@@ -29,7 +29,6 @@ def solution(data: tuple) ->> None:
     pass
     <>
 
-
 # 🚀 Run Program
 if __name__ == "__main__":
     solution(get_input_data())
