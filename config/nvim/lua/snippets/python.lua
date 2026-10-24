@@ -11,7 +11,7 @@ import os
 import sys
 
 if os.path.exists("./input_test.txt"):
-    sys.stdin = open("./input_test.txt", "r", encoding="utf-8")
+    sys.stdin = open("./input_test.txt", "r", encoding="utf-8")  # noqa: SIM115
 
 input = sys.stdin.readline
 sys.setrecursionlimit(10**6)
