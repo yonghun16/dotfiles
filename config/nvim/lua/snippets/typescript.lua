@@ -7,7 +7,7 @@ return {
     body = [[
 
 declare var require: any;
-const fs: any = require("fs");
+const fs: any = require("fs") as any;
 
 const filePath: string = fs.existsSync("./input_test.txt")
   ? "./input_test.txt"
@@ -23,12 +23,20 @@ const getInputData = () =>> {
 
 /* ⚙️ Logic */
 const solution = (data: ReturnType<<typeof getInputData>>) =>> {
+  return undefined;
   <>
+};
+
+/* 📤 Output */
+const printResult = (result: any): void =>> {
+  console.log(result);
 };
 
 /* 🚀 Run Program */
 (() =>> {
-  solution(getInputData());
+  const data = getInputData();
+  const result = solution(data);
+  printResult(result);
 })();
 ]],
   },

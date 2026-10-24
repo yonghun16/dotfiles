@@ -1,4 +1,4 @@
-package.loaded["snip_utils.header"] = nil -- 공통 모듈 수정 시 즉시 반영 (선택)
+package.loaded["snip_utils.header"] = nil
 local h = require "snip_utils.header"
 
 return {
@@ -12,25 +12,34 @@ using namespace std;
 
 using ll = long long;
 
-int main() {
+/* 📥 Input */
+void getInputData() {
     if (FILE* fp = fopen("./input_test.txt", "r")) {
         fclose(fp);
         freopen("./input_test.txt", "r", stdin);
     }
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-
-    /* 📥 Input */
-    // int n; cin >>>> n;
+    
+    // int n; cin >> n;
     // vector<<ll>> a(n);
-    // for (auto& x : a) cin >>>> x;
+    // for (auto& x : a) cin >> x;
+}
 
-    /* ⚙️ Logic */
-    <>
+/* ⚙️ Logic */
+void solution() {
+  <>
+}
 
-    /* 🚀 Output */
-    // cout <<<< ans <<<< '\n';
+/* 📤 Output */
+void printResult() {
+}
 
+/* 🚀 Run Program */
+int main() {
+    getInputData();
+    solution();
+    printResult();
     return 0;
 }
 ]],

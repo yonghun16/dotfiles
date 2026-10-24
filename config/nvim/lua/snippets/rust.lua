@@ -1,4 +1,4 @@
-package.loaded["snip_utils.header"] = nil -- 공통 모듈 수정 시 즉시 반영 (선택)
+package.loaded["snip_utils.header"] = nil
 local h = require "snip_utils.header"
 
 return {
@@ -18,20 +18,31 @@ fn read_input() ->> String {
     })
 }
 
-fn main() {
-    let input = read_input();
-    let mut it = input.split_ascii_whitespace();
-    let mut out = BufWriter::new(io::stdout().lock());
+/* 📥 Input */
+fn get_input_data() ->> String {
+    read_input()
+}
 
-    /* 📥 Input */
+/* ⚙️ Logic */
+fn solution(input: String) {
+    let mut it = input.split_ascii_whitespace();
     // let n: usize = it.next().unwrap().parse().unwrap();
     // let a: Vec<<i64>> = (0..n).map(|_| it.next().unwrap().parse().unwrap()).collect();
-
-    /* ⚙️ Logic */
     <>
+}
 
-    /* 🚀 Output */
+/* 📤 Output */
+fn print_result(out: &mut BufWriter<<std::io::StdoutLock>>) {
     // writeln!(out, "{}", ans).unwrap();
+}
+
+/* 🚀 Run Program */
+fn main() {
+    let input = get_input_data();
+    let mut out = BufWriter::new(io::stdout().lock());
+    
+    solution(input);
+    print_result(&mut out);
 }
 ]],
   },

@@ -25,13 +25,20 @@ def get_input_data() ->> tuple:
 
 
 # ⚙️ Logic
-def solution(data: tuple) ->> None:
+def solution(data: tuple):
     pass
     <>
 
+# 📤 Output
+def print_result(result) ->> None:
+    pass
+
+
 # 🚀 Run Program
 if __name__ == "__main__":
-    solution(get_input_data())
+    data = get_input_data()
+    result = solution(data)
+    print_result(result)
 ]],
   },
   h.file_header { comment = "hash" },
